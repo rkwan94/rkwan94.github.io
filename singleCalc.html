@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<title>B.O.S.S.</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="bootstrap/js/bootstrap.js"></script>
+</head>
+
+
+<body style="padding-top: 70px">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<a href="home.html" class="navbar-brand">BOSS</a>
+		
+			<button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+	
+		<div class="collapse navbar-collapse navHeaderCollapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="betCalc.html">Special Bet Caculator</a></li>
+				<li class="active"><a href="singleCalc.html">Singles Bet Calculator</a></li>
+				<li><a href="#">About</a></li>
+			</ul>
+		</div>
+	</div>
+	
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-7">
+			<h2>Single Bet Calculator</h2>
+			<p>This allows you to see how many of these you need to win in order to gain profit.
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-7">
+			<h3>Calculator</h3>
+			<form id="special" class="form-inline">
+	
+				<p>Number of Bets: <input type="text" id="numSingleBets"/></p>
+	
+				<div class="form-group" id="betsSection">
+		
+				</div>
+			
+				<p><input type="button" class="btn btn-default" id="resetBtn" value="Reset"/></p>
+				<input type="button" class="btn btn-primary" id="addInputsBtn" value="Add Bets"/>
+				<input type="button" class="btn btn-primary" id="calcSingleBtn" value="Calculate" disabled="disabled"/><br>
+			
+			</form>
+		</div>
+
+		<div class="col-md-5" id="resultSpace">
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="singleForm.js"></script>
+</body>
+</html>
+
+

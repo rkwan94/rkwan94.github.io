@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<title>B.O.S.S.</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="bootstrap/js/bootstrap.js"></script>
+</head>
+
+
+<body style="padding-top: 70px">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<a href="home.html" class="navbar-brand">B.O.S.S.</a>
+		
+			<button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+	
+		<div class="collapse navbar-collapse navHeaderCollapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="active"><a href="betCalc.html">Special Bet Caculator</a></li>
+				<li><a href="singleCalc.html">Singles Bet Calculator</a></li>
+				<li><a href="#">About</a></li>
+			</ul>
+		</div>
+	</div>
+	
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-7">
+			<h2>Special Bet Calculator</h2>
+				<p>This calculator allows you to calculate how likely you are to win a special "full-cover" bet. This includes Trixie, Yankee, Super Yankee etc. 
+				Just enter your unit stake followed by the type of bet you want to simulate and the odds for each bet.
+				</p><br><br>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-7">
+			<h3>Calculator</h3><br>
+			<form id="special" class="form-horizontal">
+				<div class="form-group col-md-7">
+					<label for="stake" class="control-label">Unit Stake: </label>
+					<input id="stake">
+				</div>
+				
+				<div class="form-group col-md-7">
+					<label for="betType" class="control-label">Bet Type: </label>
+					<select id="betType">
+						<option value="-1"> Type...</option>
+						<option value="3"> Trixie</option>
+						<option value="4"> Yankee</option>
+						<option value="5"> Super Yankee</option>
+						<option value="6"> Heinz</option>
+						<option value="7"> Super Heinz</option>
+						<option value="8"> Goliath</option>
+					</select>
+				</div>
+				
+				<div class="form-group col-md-7">
+					<p><label for="bet1" class="control-label">Bet 1 Odds: </label>
+					<input id="bet1" disabled></p>
+					
+					<p><label for="bet2" class="control-label">Bet 2 Odds: </label>
+					<input id="bet2" disabled></p>
+				
+					<p><label for="bet3" class="control-label">Bet 3 Odds: </label>
+					<input id="bet3" disabled></p>
+				
+					<p><label for="bet4" class="control-label">Bet 4 Odds: </label>
+					<input id="bet4" disabled></p>
+				
+					<p><label for="bet5" class="control-label">Bet 5 Odds: </label>
+					<input id="bet5" disabled></p>
+				
+					<p><label for="bet6" class="control-label">Bet 6 Odds: </label>
+					<input id="bet6" disabled></p>
+				
+					<p><label for="bet7" class="control-label">Bet 7 Odds: </label>
+					<input id="bet7" disabled></p>
+				
+					<p><label for="bet8" class="control-label">Bet 8 Odds: </label>
+					<input id="bet8" disabled></p><br>
+				</div>
+				
+				<div class="form-group col-md-7">
+					<p><input type="button" class="btn btn-default" value="Reset" id="resetBtn" /></p>
+					<p><input type="button" class="btn btn-primary" value="Calculate" id="calcMutliBtn" /></p>
+				</div>
+			</form>
+		</div>
+	
+	<div id="calcOutput" class="col-md-5">
+		
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="specForm.js"></script>
+</body>
+</html>
+
