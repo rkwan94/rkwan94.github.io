@@ -12,11 +12,11 @@
 	<title>Robert Kwan</title>
 
 	<!-- Bootstrap core CSS -->
-	<link href="./home_files/bootstrap.min.css" rel="stylesheet">
+	<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-	<script src="./home_files/ie-emulation-modes-warning.js"></script>
+	<script src="./bootstrap/css/ie-emulation-modes-warning.js"></script>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -25,7 +25,7 @@
 	<![endif]-->
 
 	<!-- Custom styles for this template -->
-	<link href="./home_files/carousel.css" rel="stylesheet">
+	<link href="./bootstrap/css/carousel.css" rel="stylesheet">
   <style type="text/css"></style></head>
 
 
@@ -44,20 +44,21 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			  </button>
-			  <a class="navbar-brand" href="http://getbootstrap.com/examples/carousel/#">Robert Kwan</a>
+			  <a class="navbar-brand" href="/">Robert Kwan</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 			  <ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="http://getbootstrap.com/examples/carousel/#">Home</a></li>
-				<li><a href="">About</a></li>
-				<li><a href="">Contact</a></li>
+				<li><a href="#experienceRow">About</a></li>
+				<li><a href="#contactRow">Contact</a></li>
 				<li class="dropdown">
 					<a href="http://getbootstrap.com/examples/carousel/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Projects <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="http://getbootstrap.com/examples/carousel/#">Academic Projects</a></li>
-						<li><a href="http://getbootstrap.com/examples/carousel/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personal Projects</a></li>                  
-						<li><a href="http://getbootstrap.com/examples/carousel/#">Special Bet Calculator</a></li>
-						<li><a href="http://getbootstrap.com/examples/carousel/#">Singles Bet Calculator</a></li>
+						<li><a href="#academicProjects">Academic Projects</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#personalProjects">Personal Projects</a></li>
+						<li class="dropdown-header">B.O.S.S. </li>                  
+						<li><a href="/betCalc.html">Special Bet Calculator</a></li>
+						<li><a href="/singleCalc.html">Accumulator Bet Calculator</a></li>
 					</ul>
 				</li>
 			  </ul>
@@ -67,6 +68,40 @@
 
 	  </div>
 	</div>
+
+
+	<!-- Modal
+	================================================== -->
+	<div class="modal fade" id="creditModal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title">Asset Credits</h4>
+		  </div>
+		  <div class="modal-body">
+			<p>
+				Basic graphic by <a href="http://www.icons8.com">Icons8</a> from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a>
+			</p>
+
+			<p>
+				Airplane graphic by <a href="http://www.freepik.com/">Freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a>
+			</p>
+
+			<p>
+				Trade graphic by <a href="http://www.freepik.com/">Freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a>
+			</p>
+
+			<p>
+				Soccer graphic by <a href="http://www.icons8.com">Icons8</a> and Cloud Computing graphic by <a href="http://www.freepik.com/">Freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a> are licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a>
+			</p>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 
 	<!-- Carousel
@@ -138,11 +173,11 @@
 
 	  <hr class="featurette-divider">
 
-	  <div class="row featurette">
+	  <div class="row featurette" id="experienceRow">
 		<div class="col-md-7 col-md-push-5">
 		  <h2 class="featurette-heading">Experience and Skills.</h2>
 		  <p class="lead">
-			<strong>Languages: </strong> Bash, C, Haskell, HTML5/CSS3, Java, JavaScript, MySQL, Perl, PostGRESQL, Python
+			<strong>Languages: </strong> Bash, C, Haskell, HTML5/CSS3, Java, JavaScript, MySQL, Perl, PostgreSQL, Python
 		  </p>
 
 		  <p class="lead">
@@ -150,7 +185,7 @@
 		  </p>
 
 		  <p class="lead">
-			<strong>Operating Systems: </strong> Windos, Mac OS, Linux
+			<strong>Operating Systems: </strong> Windows, Mac OS, Linux
 		  </p>
 		</div>
 		<div class="col-md-5 col-md-pull-7">
@@ -162,6 +197,8 @@
 
 	  <!-- Three columns of text below the carousel -->
 	  <div class="row" id="academicProjects">
+		<h1 class="text-center" style="padding-bottom: 25px;">Academic Projects</h1>
+
 		<div class="col-lg-4">
 		  <img class="img-circle" src="assets/LOVE_2041.png" alt="Generic placeholder image" width="140" height="140">
 		  <h2>LOVE2041</h2>
@@ -183,6 +220,9 @@
 	  
 	  <!-- Three columns of text below the carousel -->
 	  <div class="row" id="personalProjects">
+
+	  	<h1 class="text-center" style="padding-bottom: 25px;">Personal Projects</h1>
+
 		<div class="col-lg-6">
 		  <img class="img-circle" src="assets/BOSS.png" alt="Generic placeholder image" width="140" height="140">
 		  <h2>B.O.S.S.</h2>
@@ -200,7 +240,7 @@
 
 	  <hr class="featurette-divider">
 
-	  <div class="row featurette">
+	  <div class="row featurette" id="contactRow">
 		<div class="col-md-7">
 		  <h2 class="featurette-heading">Finally, </h2>
 		  <p class="lead">A copy of my resume can be found <a target="_blank" href="resume.pdf">here</a>. If you are an employer and would like to make further enquiries, please feel free to contact me via my email: <a href="mailto:rkwan94@gmail.com">rkwan94@gmail.com</a>.</p>
@@ -218,7 +258,7 @@
 	  <!-- FOOTER -->
 	  <footer>
 		<p class="pull-right"><a href="http://getbootstrap.com/examples/carousel/#">Back to top</a></p>
-		<p>© Robert Kwan | <a href="http://getbootstrap.com/examples/carousel/#">Credits</a> | <a href="http://getbootstrap.com/examples/carousel/#">Contact</a></p>
+		<p>© Robert Kwan | <a data-toggle="modal" data-target="#creditModal">Credits</a> | <a href="http://getbootstrap.com/examples/carousel/#">Contact</a></p>
 	  </footer>
 
 	</div><!-- /.container -->
@@ -227,12 +267,10 @@
 	<!-- Bootstrap core JavaScript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="./home_files/jquery.min.js"></script>
-	<script src="./home_files/bootstrap.min.js"></script>
-	<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-	<script src="./home_files/holder.min.js"></script>
+	<script src="./bootstrap/js/jquery.min.js"></script>
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="./home_files/ie10-viewport-bug-workaround.js"></script>
+	<script src="./bootstrap/js/ie10-viewport-bug-workaround.js"></script>
   
 
 </body></html>
