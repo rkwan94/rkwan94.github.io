@@ -103,15 +103,13 @@ app.controller('sourceController', function(){
 			this.source.reference = this.source.reference.concat("pp. ", this.source.pagesUsed, ".");
 		}else if(type === 'website'){
 			this.source.reference = this.source.reference.concat("<i>", this.source.pageTitle, "</i>, ");
-			this.source.reference = this.source.reference.concat("vol. ", this.source.journalNum, ", ");
-			this.source.reference = this.source.reference.concat("no. ", this.source.issueNum, ", ");
-			this.source.reference = this.source.reference.concat("pp. ", this.source.pagesUsed, ".");
+			this.source.reference = this.source.reference.concat(this.source.siteName, ", ");
+			this.source.reference = this.source.reference.concat("viewed ", this.source.date, ", ");
+			this.source.reference = this.source.reference.concat(this.source.url);
 		}else if(type === 'newsOrMag'){
 
 		}
 	};
-
-
 });
 
 app.filter('trustedhtml', ['$sce', function($sce) { 

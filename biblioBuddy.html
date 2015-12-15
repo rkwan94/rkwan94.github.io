@@ -7,18 +7,29 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="bootstrap/js/bootstrap.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
 
 	<style type="text/css">
 		body{
 			padding-top: 70px;
 			padding-bottom: 100px;
+
+			
 		}
 
-		.col-md-5.resultSpace{
-			position: fixed;
-			top: 35%;
-			right: 1%;
+		@media (max-width: 775px) {
+			body{
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+		}
+
+		@media(min-width: 993px){ 
+			.resultSpace{
+				position: fixed;
+				top: 35%;
+				right: 1%;
+			}
 		}
 	</style>
 </head>
@@ -26,7 +37,7 @@
 
 <body ng-app="mainApp">
 
-<div ng-include src='"./navbar.html"'>
+<div ng-include src='"./assets/sharedHTML/navbar.html"'>
 </div>
 
 <div class="container">
@@ -39,35 +50,35 @@
 			<div style="padding-top: 30px;" class="row" ng-controller="sourceController as sourceCtrl">
 				<div class="col-md-7" >
 					<!-- Nav tabs -->
-				  <ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active" id="book">
-						<a href="#book" aria-controls="book" role="tab" data-toggle="tab">Book</a>
+				  <ul class="nav nav-tabs" role="tablist" id="myTab">
+				  	<li role="presentation" class="active" id="journalArticle">
+						<a data-target="#journalArticleTab" aria-controls="journalArticle" role="tab" data-toggle="tab">Journal Article</a>
 					</li>
-					<li role="presentation" id="journalArticle">
-						<a href="#journalArticle" aria-controls="journalArticle" role="tab" data-toggle="tab">Journal Article</a>
+					<li role="presentation" id="book">
+						<a data-target="#bookTab" aria-controls="book" role="tab" data-toggle="tab">Book</a>
 					</li>
 					<li role="presentation" id="website">
-						<a href="#website" aria-controls="website" role="tab" data-toggle="tab">Website</a></li>
+						<a data-target="#websiteTab" aria-controls="website" role="tab" data-toggle="tab">Website</a></li>
 					<li role="presentation" id="newsOrMag">
-						<a href="#newsOrMag" aria-controls="newsOrMag" role="tab" data-toggle="tab">Newspaper/Magazine</a>
+						<a data-target="#newsOrMagTab" aria-controls="newsOrMag" role="tab" data-toggle="tab">Newspaper/Magazine</a>
 					</li>
 				  </ul>
 
 				  <!-- Tab panes -->
-				  <div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="book">
-							<div ng-include src='"./bookForm.html"'></div>
-						</div>
-
-						<div role="tabpanel" class="tab-pane" id="journalArticle">
+				  <div class="tab-content" style="padding-top: 20px;">
+						<div role="tabpanel" class="tab-pane fade in active" id="journalArticleTab">
 							<div ng-include src='"./journalForm.html"'></div>
 						</div>
 
-						<div role="tabpanel" class="tab-pane" id="website">
+						<div role="tabpanel" class="tab-pane fade" id="bookTab">
+							<div ng-include src='"./bookForm.html"'></div>
+						</div>
+
+						<div role="tabpanel" class="tab-pane fade" id="websiteTab">
 							<div ng-include src='"./websiteForm.html"'></div>
 						</div>
 
-						<div role="tabpanel" class="tab-pane" id="newsOrMag">
+						<div role="tabpanel" class="tab-pane fade" id="newsOrMagTab">
 							<div ng-include src='"./newsMagForm.html"'></div>
 						</div>
 
@@ -80,7 +91,7 @@
 
 				</div>
 
-				<div class="col-md-5">
+				<div class="col-md-5 resultSpace">
 					<h2>Reference citation</h2>
 					<div class="well well-sm" ng-bind-html="sourceCtrl.source.reference | trustedhtml"></div>
 
@@ -102,6 +113,11 @@
 <script type="text/javascript" src="./biblioBuddy/controllers/sourceController.js"></script>
 <script type="text/javascript">
 	console.log("angular object", angular);
+
+	$('#myTab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
 </script>
 </body>
 </html>
