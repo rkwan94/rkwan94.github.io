@@ -1,0 +1,56 @@
+<form>
+	<div class="form-group">
+		<label for="title">Title</label>
+		<input type="text" class="form-control" id="title" placeholder="Title">
+	</div>
+
+	<div class="form-group">
+		<label for="year" class="control-label">Year</label>
+		
+		<select class="form-control" id="year" ng-model="year">
+			<option ng-repeat="year in yearOptions1">{{year}}</option>
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label for="author1" class="control-label">Author 1</label>
+	</div>
+	<div class="form-group form-inline">
+
+	  <div class="form-group">
+	    <label for="exampleInputName2">First Name</label>
+	    <input type="text" class="form-control" id="firstName1" placeholder="First Name">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputEmail2">Last Name</label>
+	    <input type="text" class="form-control" id="lastName1" placeholder="Last Name" ng-model="lastName">
+	  </div>
+	</div>
+
+	<hr>
+
+	<div class="form-group">
+		<label for="edition">Edition</label>
+		<input type="text" class="form-control" id="edition" placeholder="1st, 2nd, 3rd...">
+
+	</div>
+
+	<div class="form-group">
+		<label for="publisher">Publisher</label>
+		<input type="text" class="form-control" id="publisher" placeholder="Publisher">
+	</div>
+
+	<div class="form-group">
+		<label for="cityPublished">City Published</label>
+		<input type="text" class="form-control" id="cityPublished" placeholder="City Published">
+	</div>
+
+	<div class="form-group">
+		<label for="cityPublished">Pages Used</label>
+		<input type="text" class="form-control" id="cityPublished" placeholder="Pages Used (pp1-5)">
+	</div>
+
+	<div class="form-group" ng-include src='"./referenceTypes.html"'></div>
+
+	<button type="submit" class="btn btn-default">Generate</button>
+</form>

@@ -9,135 +9,97 @@
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="bootstrap/js/bootstrap.js"></script>
 
-	<script type="text/javascript">
-		$(function() {
+	<style type="text/css">
+		body{
+			padding-top: 70px;
+			padding-bottom: 100px;
+		}
 
-	var $table = $('table.authors-list'),
-		counter = 1;
-
-		$('a.add-author').click(function(event){
-			event.preventDefault();
-			counter++;
-			var newRow = 
-				'<tr>' + 
-					'<td><input type="text" name="first_name' + counter + '"/></td>' +
-					'<td><input type="text" name="last_name' + counter + '"/></td>' +
-					'<td><a class="remove">remove</a></td>'
-				'</tr>';
-			$table.append(newRow);
-		});
-
-		// Remove rows on click
-		$table.on('click', '.remove', function() {
-			$(this).closest('tr').remove();
-		});
-	});
-	</script>
+		.col-md-5.resultSpace{
+			position: fixed;
+			top: 35%;
+			right: 1%;
+		}
+	</style>
 </head>
 
 
-<body style="padding-top: 70px" ng-app="mainApp">
+<body ng-app="mainApp">
 
 <div ng-include src='"./navbar.html"'>
 </div>
 
 <div class="container">
-	<div class="row" >
-		<div class="col-md-7">
-			<h2>Biblio Buddy</h2>
-			
-			<input type="text" ng-model="search">
-			<p> {{search}} </p>
-
-
-		</div>
-			
-	</div>
 	<div class="row">
-		<div class="col-md-7">
-			<h3>Calculator</h3>
-			<div>
-
-			  <!-- Nav tabs -->
-			  <ul class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#book" aria-controls="book" role="tab" data-toggle="tab">Book</a></li>
-				<li role="presentation"><a href="#journalArticle" aria-controls="journalArticle" role="tab" data-toggle="tab">Journal Article</a></li>
-				<li role="presentation"><a href="#website" aria-controls="website" role="tab" data-toggle="tab">Website</a></li>
-				<li role="presentation"><a href="#newsOrMag" aria-controls="newsOrMag" role="tab" data-toggle="tab">Newspaper/Magazine</a></li>
-			  </ul>
-
-			  <!-- Tab panes -->
-			  <div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="book">
-						<form>
-							<div class="form-group">
-								<label for="title">Title</label>
-								<input type="text" class="form-control" id="title" placeholder="Title">
-							</div>
-
-							<div class="form-group">
-								<label for="title">Title</label>
-								<input type="text" class="form-control" id="title" placeholder="Title">
-							</div>
-
-							<div class="form-group">
-								<label for="edition">Edition</label>
-								<input type="text" class="form-control" id="edition" placeholder="1st, 2nd, 3rd...">
-
-							</div>
-
-							<div class="form-group">
-								<label for="publisher">Publisher</label>
-								<input type="text" class="form-control" id="publisher" placeholder="Publisher">
-							</div>
-
-							<div class="form-group">
-								<label for="cityPublished">City Published</label>
-								<input type="text" class="form-control" id="cityPublished" placeholder="City Published">
-							</div>
-
-							<div class="form-group">
-								<label for="cityPublished">City Published</label>
-								<input type="text" class="form-control" id="cityPublished" placeholder="City Published">
-							</div>
-
-							<radiogroup>
-							  <radio id="harvard" label="Harvard" value="harvard" accesskey="H" selected="true"/>
-							  <radio id="harvardUTS" label="Harvard UTS" value="harvardUTS" accesskey="U"/>
-							  <radio id="apa" label="APA" value="apa" accesskey="a"/>
-							  <radio id="chicago" label="Chicago" value="chicago" accesskey="C"/>
-							</radiogroup>
-
-							<button type="submit" class="btn btn-default">Generate</button>
-						</form>
-
-					</div>
-
-					<div role="tabpanel" class="tab-pane" id="journalArticle">Journal Article stuff</div>
-					<div role="tabpanel" class="tab-pane" id="website">Website stuff</div>
-					<div role="tabpanel" class="tab-pane" id="newsOrMag">Newspaper/magazine stuff</div>
-
-					
-			  </div>
-
+		<div ng-controller="EventCtrl">
+			<div class="page-header">
+			  <h1>Biblio Buddy</h1>
 			</div>
 
-			<h2>Reference citation</h2>
-			<div class="well well-sm">ref cite: ...</div>
+			<div style="padding-top: 30px;" class="row" ng-controller="sourceController as sourceCtrl">
+				<div class="col-md-7" >
+					<!-- Nav tabs -->
+				  <ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active" id="book">
+						<a href="#book" aria-controls="book" role="tab" data-toggle="tab">Book</a>
+					</li>
+					<li role="presentation" id="journalArticle">
+						<a href="#journalArticle" aria-controls="journalArticle" role="tab" data-toggle="tab">Journal Article</a>
+					</li>
+					<li role="presentation" id="website">
+						<a href="#website" aria-controls="website" role="tab" data-toggle="tab">Website</a></li>
+					<li role="presentation" id="newsOrMag">
+						<a href="#newsOrMag" aria-controls="newsOrMag" role="tab" data-toggle="tab">Newspaper/Magazine</a>
+					</li>
+				  </ul>
 
-			<h2>In-text Citation</h2>
-			<div class="well well-sm">intext cite: ()</div>
+				  <!-- Tab panes -->
+				  <div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="book">
+							<div ng-include src='"./bookForm.html"'></div>
+						</div>
+
+						<div role="tabpanel" class="tab-pane" id="journalArticle">
+							<div ng-include src='"./journalForm.html"'></div>
+						</div>
+
+						<div role="tabpanel" class="tab-pane" id="website">
+							<div ng-include src='"./websiteForm.html"'></div>
+						</div>
+
+						<div role="tabpanel" class="tab-pane" id="newsOrMag">
+							<div ng-include src='"./newsMagForm.html"'></div>
+						</div>
+
+							<div class="form-group" ng-include src='"./referenceTypes.html"'></div>
+
+							<button type="submit" class="btn btn-primary" ng-click="sourceCtrl.generateReferences(getSourceType())">Generate</button>
+						</form>
+				  </div>
+
+
+				</div>
+
+				<div class="col-md-5">
+					<h2>Reference citation</h2>
+					<div class="well well-sm" ng-bind-html="sourceCtrl.source.reference | trustedhtml"></div>
+
+					<h2>In-text Citation</h2>
+					<div class="well well-sm">{{sourceCtrl.source.inText}}</div>
+				</div>
+			</div>
+
+			
 		</div>
 
-		<div class="col-md-5" id="resultSpace">
-
-		</div>
+		
 	</div>
 </div>
 
 <script type="text/javascript" src="./biblioBuddy/angular.min.js"></script>
 <script type="text/javascript" src="./biblioBuddy/mainApp.js"></script>
 <script type="text/javascript" src="./biblioBuddy/event/eventModule.js"></script>
+<script type="text/javascript" src="./biblioBuddy/controllers/sourceController.js"></script>
 <script type="text/javascript">
 	console.log("angular object", angular);
 </script>

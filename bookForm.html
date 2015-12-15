@@ -1,0 +1,56 @@
+<form name="bookForm">
+	<div class="form-group">
+		<label for="title">Title</label>
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.title" placeholder="Title">
+	</div>
+
+	<div class="form-group">
+		<label for="year" class="control-label">Year</label>
+		
+		<select class="form-control" ng-model="sourceCtrl.source.year">
+			<option ng-repeat="year in generateYears(2015, 1800)">{{year}}</option>
+		</select>
+	</div>
+
+	<div ng-repeat="a in sourceCtrl.source.authors">
+		<div class="form-group">
+			<label for="author1" class="control-label">Author {{ a.count }}</label>
+		</div>
+	
+		<div class="form-group form-inline">
+
+		  <div class="form-group">
+		    <label for="firstName{{a.count}}">First Name</label>
+		    <input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
+		  </div>
+		  <div class="form-group">
+		    <label for="lastName{{a.count}}">Last Name</label>
+		    <input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
+		  </div>
+		</div>
+	</div>
+
+	<button class="btn btn-default" ng-click="sourceCtrl.addAuthor()">Add Author</button>
+	<hr>
+
+	<div class="form-group">
+		<label for="edition">Edition</label>
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.edition" placeholder="1st">
+
+	</div>
+
+	<div class="form-group">
+		<label for="publisher">Publisher</label>
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.publisher" placeholder="Publisher">
+	</div>
+
+	<div class="form-group">
+		<label for="cityPublished">City Published</label>
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.cityPublished" placeholder="City Published">
+	</div>
+
+	<div class="form-group">
+		<label for="pagesUsed">Pages Used</label>
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.pagesUsed" placeholder="Pages Used (pp 1-5)">
+	</div>
+

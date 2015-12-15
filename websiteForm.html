@@ -1,0 +1,51 @@
+<form>
+	<div class="form-group">
+		<label for="siteName">Website Name</label>
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.siteName" placeholder="Website Name">
+	</div>
+
+	<div class="form-group">
+		<label for="pageTitle">Page Title</label>
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.pageTitle" placeholder="Page Title">
+	</div>
+
+	<div class="form-group">
+		<label for="year" class="control-label">Year Published</label>
+		
+		<select class="form-control" id="year" ng-model="sourceCtrl.source.year">
+			<option ng-repeat="year in generateYears(2015, 1975)">{{year}}</option>
+		</select>
+	</div>
+
+	<div ng-repeat="a in sourceCtrl.source.authors">
+		<div class="form-group">
+			<label for="author1" class="control-label">Author {{ a.count }}</label>
+		</div>
+	
+		<div class="form-group form-inline">
+
+		  <div class="form-group">
+		    <label for="firstName{{a.count}}">First Name</label>
+		    <input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
+		  </div>
+		  <div class="form-group">
+		    <label for="lastName{{a.count}}">Last Name</label>
+		    <input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
+		  </div>
+		</div>
+	</div>
+
+	<button class="btn btn-default" ng-click="sourceCtrl.addAuthor()">Add Author</button>
+
+	<hr>
+
+	<div class="form-group">
+		<label for="url">URL</label>
+		<input type="url" class="form-control" ng-model="sourceCtrl.source.url" placeholder="http://">
+
+	</div>
+
+	<div class="form-group">
+		<label for="dateAccessed">Date accessed</label>
+		<input type="date" class="form-control" ng-model="sourceCtrl.source.date" placeholder="dd/mm/yyyy">
+	</div>
