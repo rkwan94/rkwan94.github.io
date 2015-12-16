@@ -17,34 +17,40 @@
 		</select>
 	</div>
 
-	<div ng-repeat="a in sourceCtrl.source.authors">
-		<div class="form-group">
-			<label for="author1" class="control-label">Author {{ a.count }}</label>
-		</div>
-	
-		<div class="form-group form-inline">
-
-		  <div class="form-group">
-		    <label for="firstName{{a.count}}">First Name</label>
-		    <input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
-		  </div>
-		  <div class="form-group">
-		    <label for="lastName{{a.count}}">Last Name</label>
-		    <input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
-		  </div>
-		</div>
+	<div class="form-group">
+		<label class="control-label">Authors</label>
 	</div>
 
+	<div ng-repeat="a in sourceCtrl.source.authors">
+		<div class="form-group form-inline">
+
+			<div class="form-group">
+				<label for="author1" class="control-label">Author {{ a.count }}: </label>
+			</div>
+
+			<div class="form-group">
+				<input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
+			</div>
+
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
+			</div>
+		</div>
+	</div>
 	<button class="btn btn-default" ng-click="sourceCtrl.addAuthor()">Add Author</button>
 
 	<hr>
 
 	<div class="form-group">
 		<label for="date">Date</label>
-		<input type="date" class="form-control" ng-model="sourceCtrl.source.date" placeholder="dd/mm/yyyy">
+		<input type="date" class="form-control" id="datePickerNewspaper" ng-model="sourceCtrl.source.date">
 	</div>
 
 	<div class="form-group">
 		<label for="pagesUsed">Pages Used</label>
 		<input type="text" class="form-control" ng-model="sourceCtrl.source.pagesUsed" placeholder="Pages Used (pp1-5)">
 	</div>
+
+	<script type="text/javascript">
+		document.getElementById('datePickerNewspaper').valueAsDate = new Date();
+	</script>

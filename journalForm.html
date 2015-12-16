@@ -1,34 +1,39 @@
 <form name="journalForm" ng-submit="sourceCtrl.generateReferences('journal')">
 	<div class="form-group">
 		<label for="title">Title</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.title" placeholder="Article Title">
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.title" placeholder="Article Title" required>
 	</div>
 
 	<div class="form-group">
 		<label for="year" class="control-label">Year</label>
 		
-		<select class="form-control" id="year" ng-model="sourceCtrl.source.year">
+		<select class="form-control" id="year" ng-model="sourceCtrl.source.year" required>
 			<option ng-repeat="year in generateYears(2015, 1880)">{{year}}</option>
 		</select>
 	</div>
 
+	<div class="form-group">
+		<label class="control-label">Authors</label>
+	</div>
+
 	<div ng-repeat="a in sourceCtrl.source.authors">
-		<div class="form-group">
-			<label for="author1" class="control-label">Author {{ a.count }}</label>
-		</div>
-	
 		<div class="form-group form-inline">
 
-		  <div class="form-group">
-		    <label for="firstName{{a.count}}">First Name</label>
-		    <input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
-		  </div>
-		  <div class="form-group">
-		    <label for="lastName{{a.count}}">Last Name</label>
-		    <input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
-		  </div>
+			<div class="form-group">
+				<label for="author1" class="control-label">Author {{ a.count }}: </label>
+			</div>
+
+			<div class="form-group">
+				<input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
+			</div>
+
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
+			</div>
 		</div>
 	</div>
+
+	<button class="btn btn-default" ng-click="sourceCtrl.addAuthor()">Add Author</button>
 
 	<hr>
 
@@ -40,11 +45,11 @@
 
 	<div class="form-group form-inline">
 	  <div class="form-group">
-	    <label for="volumeNum">Journal No.</label>
+	    <label for="volumeNum">Journal No. </label>
 	    <input type="text" class="form-control" ng-model="sourceCtrl.source.journalNum" placeholder="Volume Number">
 	  </div>
 	  <div class="form-group">
-	    <label for="issueNum">Issue No.</label>
+	    <label for="issueNum">Issue No. </label>
 	    <input type="text" class="form-control" ng-model="sourceCtrl.source.issueNum" placeholder="Issue Number">
 	  </div>
 	</div>

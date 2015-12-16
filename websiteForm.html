@@ -17,21 +17,24 @@
 		</select>
 	</div>
 
+	<div class="form-group">
+		<label class="control-label">Authors</label>
+	</div>
+
 	<div ng-repeat="a in sourceCtrl.source.authors">
-		<div class="form-group">
-			<label for="author1" class="control-label">Author {{ a.count }}</label>
-		</div>
-	
 		<div class="form-group form-inline">
 
-		  <div class="form-group">
-		    <label for="firstName{{a.count}}">First Name</label>
-		    <input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
-		  </div>
-		  <div class="form-group">
-		    <label for="lastName{{a.count}}">Last Name</label>
-		    <input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
-		  </div>
+			<div class="form-group">
+				<label for="author1" class="control-label">Author {{ a.count }}: </label>
+			</div>
+
+			<div class="form-group">
+				<input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
+			</div>
+
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
+			</div>
 		</div>
 	</div>
 
@@ -47,5 +50,10 @@
 
 	<div class="form-group">
 		<label for="dateAccessed">Date accessed</label>
-		<input type="date" class="form-control" ng-model="sourceCtrl.source.date" placeholder="dd/mm/yyyy">
+		<input type="date" class="form-control" id="datePickerWebsite" ng-model="sourceCtrl.source.date">
 	</div>
+
+	<script type="text/javascript">
+		document.getElementById('datePickerWebsite').valueAsDate = new Date();
+
+	</script>

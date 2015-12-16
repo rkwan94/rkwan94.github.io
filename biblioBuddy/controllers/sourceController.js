@@ -1,4 +1,19 @@
 app.controller('sourceController', function(){
+	monthNames = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December"
+	];
+
 	this.source = {
 		authors: [
 			{
@@ -28,7 +43,7 @@ app.controller('sourceController', function(){
 		var nameString = "";
 		var firstNames = author.firstName.split(" ");
 		for(var i = 0; i < firstNames.length; i++){
-			initials = this.source.refStyle === "uts" ? nameString + firstNames[i].charAt(0) + "." : nameString + firstNames[i].charAt(0);
+			initials = this.source.refStyle === "uts" || this.source.refStyle === "apa" ? nameString + firstNames[i].charAt(0) + "." : nameString + firstNames[i].charAt(0);
 		}
 		nameString =  author.lastName + ", " + initials;
 		return nameString;
@@ -55,8 +70,16 @@ app.controller('sourceController', function(){
 			referenceAuthor = 	referenceAuthor + ", " + this.initialisedName(this.source.authors[i]);
 		}
 
-		referenceAuthor = numAuthors === 1 ? this.initialisedName(this.source.authors[0]) : referenceAuthor + " & " + this.initialisedName(this.source.authors[numAuthors-1]);
-
+		if(this.source.refStyle === "apa"){
+			if (numAuthors > 1){
+				referenceAuthor = referenceAuthor + ", & " + this.initialisedName(this.source.authors[numAuthors-1]);
+			}
+		}else{
+			if (numAuthors > 1){
+				referenceAuthor = referenceAuthor + " & " + this.initialisedName(this.source.authors[numAuthors-1]);
+			}
+		}
+		
 		return referenceAuthor;
 	}
 
@@ -83,8 +106,18 @@ app.controller('sourceController', function(){
 
 		//reference list entry
 		//authors first
-		this.source.reference = this.referenceAuthorCitation();
-		this.source.reference = this.source.reference.concat(" ", this.source.year, ", ");
+
+		if(type === 'website'){
+			this.source.reference = this.source.hasOwnProperty('author') ? this.referenceAuthorCitation() : '';
+			this.source.reference = this.source.hasOwnProperty('year') ? this.source.reference.concat(" ", this.source.year, ", ") : this.source.reference.concat(" n.d. ");
+		}else{
+			this.source.reference = this.referenceAuthorCitation();
+			if(refStyle === "apa"){
+				this.source.reference = this.source.reference.concat(" (", this.source.year, "). ");
+			}else{
+				this.source.reference = this.source.reference.concat(" ", this.source.year, ", ");
+			}
+		}
 
 		if(type === 'book'){	
 			this.source.reference = this.source.reference.concat("<i>", this.source.title, "</i>, ");
@@ -104,10 +137,19 @@ app.controller('sourceController', function(){
 		}else if(type === 'website'){
 			this.source.reference = this.source.reference.concat("<i>", this.source.pageTitle, "</i>, ");
 			this.source.reference = this.source.reference.concat(this.source.siteName, ", ");
-			this.source.reference = this.source.reference.concat("viewed ", this.source.date, ", ");
-			this.source.reference = this.source.reference.concat(this.source.url);
+			this.source.reference = this.source.reference.concat("viewed ", this.source.date.getDate(), " ", monthNames[this.source.date.getMonth()], " ", this.source.date.getFullYear(), ", ");
+			
+			if(refStyle === "uts"){
+				this.source.reference = this.source.reference.concat("<", this.source.url, ">");
+			}else{
+				this.source.reference = this.source.reference.concat(this.source.url);
+			}
+			
 		}else if(type === 'newsOrMag'){
-
+			this.source.reference = this.source.reference.concat("'", this.source.articleTitle, "', ");
+			this.source.reference = this.source.reference.concat("<i>", this.source.paperName, "</i>, ");
+			this.source.reference = this.source.reference.concat(this.source.date.getDate(), " ", monthNames[this.source.date.getMonth()]);
+			this.source.reference = this.source.hasOwnProperty('pagesUsed') ? this.source.reference.concat(", ", this.source.pagesUsed, ".") : this.source.reference.concat(".");
 		}
 	};
 });
