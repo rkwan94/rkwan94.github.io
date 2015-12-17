@@ -1,12 +1,12 @@
-<form>
+<form name="newsMagForm" ng-submit="newsMagForm.$valid && sourceCtrl.generateReferences('newsOrMag')" novalidate>
 	<div class="form-group">
 		<label for="title">Newspaper or Magazine Name</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.paperName" placeholder="Name of Newspaper or Magazine">
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.paperName" placeholder="Name of Newspaper or Magazine" required>
 	</div>
 
 	<div class="form-group">
 		<label for="title">Article Title</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.articleTitle" placeholder="Article Title">
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.articleTitle" placeholder="Article Title" required>
 	</div>
 
 	<div class="form-group">
@@ -37,19 +37,27 @@
 			</div>
 		</div>
 	</div>
-	<button class="btn btn-default" ng-click="sourceCtrl.addAuthor()">Add Author</button>
 
+	<button class="btn btn-default" type="button" ng-click="sourceCtrl.addAuthor()">Add Author</button>
+
+	<button class="btn btn-warning" type="button" ng-click="sourceCtrl.removeAuthor()" ng-disabled="sourceCtrl.numAuthors() == 1;">Remove Author</button>
 	<hr>
 
 	<div class="form-group">
 		<label for="date">Date</label>
-		<input type="date" class="form-control" id="datePickerNewspaper" ng-model="sourceCtrl.source.date">
+		<input type="date" class="form-control" id="datePickerNewspaper" ng-model="sourceCtrl.source.date" required>
 	</div>
 
 	<div class="form-group">
 		<label for="pagesUsed">Pages Used</label>
 		<input type="text" class="form-control" ng-model="sourceCtrl.source.pagesUsed" placeholder="Pages Used (pp1-5)">
 	</div>
+
+	<div class="form-group" ng-include src='"./referenceTypes.html"'></div>
+
+	<button type="submit" class="btn btn-primary">Generate</button>
+	
+	</form>
 
 	<script type="text/javascript">
 		document.getElementById('datePickerNewspaper').valueAsDate = new Date();

@@ -1,13 +1,13 @@
-<form name="bookForm">
+<form name="bookForm" ng-submit="bookForm.$valid && sourceCtrl.generateReferences('book')" novalidate>
 	<div class="form-group">
 		<label for="title">Title</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.title" placeholder="Title">
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.title" placeholder="Title" required>
 	</div>
 
 	<div class="form-group">
 		<label for="year" class="control-label">Year</label>
 		
-		<select class="form-control" ng-model="sourceCtrl.source.year">
+		<select class="form-control" ng-model="sourceCtrl.source.year" required>
 			<option ng-repeat="year in generateYears(2015, 1800)">{{year}}</option>
 		</select>
 	</div>
@@ -33,7 +33,9 @@
 		</div>
 	</div>
 
-	<button class="btn btn-default" ng-click="sourceCtrl.addAuthor()">Add Author</button>
+	<button class="btn btn-default" type="button" ng-click="sourceCtrl.addAuthor()">Add Author</button>
+
+	<button class="btn btn-warning" type="button" ng-click="sourceCtrl.removeAuthor()" ng-disabled="sourceCtrl.numAuthors() == 1;">Remove Author</button>
 	<hr>
 
 	<div class="form-group">
@@ -44,16 +46,21 @@
 
 	<div class="form-group">
 		<label for="publisher">Publisher</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.publisher" placeholder="Publisher">
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.publisher" placeholder="Publisher" required>
 	</div>
 
 	<div class="form-group">
 		<label for="cityPublished">City Published</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.cityPublished" placeholder="City Published">
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.cityPublished" placeholder="City Published" required>
 	</div>
 
 	<div class="form-group">
 		<label for="pagesUsed">Pages Used</label>
 		<input type="text" class="form-control" ng-model="sourceCtrl.source.pagesUsed" placeholder="Pages Used (pp 1-5)">
 	</div>
+
+	<div class="form-group" ng-include src='"./referenceTypes.html"'></div>
+
+	<button type="submit" class="btn btn-primary">Generate</button>
+	</form>
 

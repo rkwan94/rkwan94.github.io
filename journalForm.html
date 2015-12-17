@@ -1,4 +1,4 @@
-<form name="journalForm" ng-submit="sourceCtrl.generateReferences('journal')">
+<form name="journalForm" ng-submit="journalForm.$valid && sourceCtrl.generateReferences('journalArticle')" novalidate>
 	<div class="form-group">
 		<label for="title">Title</label>
 		<input type="text" class="form-control" ng-model="sourceCtrl.source.title" placeholder="Article Title" required>
@@ -24,22 +24,24 @@
 			</div>
 
 			<div class="form-group">
-				<input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
+				<input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name" required>
 			</div>
 
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
+				<input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName" ng-disabled="sourceCtrl.numAuthors() == 1;" required>
 			</div>
 		</div>
 	</div>
 
-	<button class="btn btn-default" ng-click="sourceCtrl.addAuthor()">Add Author</button>
+	<button class="btn btn-default" type="button" ng-click="sourceCtrl.addAuthor()">Add Author</button>
+
+	<button class="btn btn-warning" type="button" ng-click="sourceCtrl.removeAuthor()">Remove Author</button>
 
 	<hr>
 
 	<div class="form-group">
 		<label for="journal">Journal Name</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.journal" placeholder="Journal Name">
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.journal" placeholder="Journal Name" required>
 
 	</div>
 
@@ -56,5 +58,10 @@
 
 	<div class="form-group">
 		<label for="cityPublished">Pages Used</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.pagesUsed" placeholder="Pages Used (pp 1-5)">
+		<input type="text" class="form-control" ng-model="sourceCtrl.source.pagesUsed" placeholder="Pages Used (pp 1-5)" required>
 	</div>
+
+	<div class="form-group" ng-include src='"./referenceTypes.html"'></div>
+
+	<button type="submit" class="btn btn-primary">Generate</button>
+	</form>

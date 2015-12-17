@@ -39,6 +39,12 @@ app.controller('sourceController', function(){
 		this.source.authors[numAuthors] = newAuthor;
 	};
 
+	this.removeAuthor = function(){
+		if(this.source.authors.length > 1){
+			var dummy = this.source.authors.pop();
+		}
+	};
+
 	this.initialisedName = function(author){
 		var nameString = "";
 		var firstNames = author.firstName.split(" ");
@@ -152,6 +158,10 @@ app.controller('sourceController', function(){
 			this.source.reference = this.source.hasOwnProperty('pagesUsed') ? this.source.reference.concat(", ", this.source.pagesUsed, ".") : this.source.reference.concat(".");
 		}
 	};
+
+	this.search = function(query){
+
+	}
 });
 
 app.filter('trustedhtml', ['$sce', function($sce) { 
