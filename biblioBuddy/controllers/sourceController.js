@@ -160,7 +160,12 @@ app.controller('sourceController', function(){
 	};
 
 	this.search = function(query){
+		var xmlhttp = new XMLHttpRequest();
+		var key = "vqI5LRdlC8eFJARJqH2yjB27CmDPcMkgp3bc9mnRkfQbUS9micwMTpPjhSF5N4KyIp2Bo8QKSHolMgrA"
+		var url = "http://www.worldcat.org/webservices/catalog";
 
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
 	}
 });
 
