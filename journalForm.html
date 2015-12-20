@@ -28,14 +28,14 @@
 			</div>
 
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName" ng-disabled="sourceCtrl.numAuthors() == 1;" required>
+				<input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName" required>
 			</div>
 		</div>
 	</div>
 
 	<button class="btn btn-default" type="button" ng-click="sourceCtrl.addAuthor()">Add Author</button>
 
-	<button class="btn btn-warning" type="button" ng-click="sourceCtrl.removeAuthor()">Remove Author</button>
+	<button class="btn btn-warning" type="button" ng-click="sourceCtrl.removeAuthor()" ng-disabled="sourceCtrl.numAuthors() == 1;">Remove Author</button>
 
 	<hr>
 
