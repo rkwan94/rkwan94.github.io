@@ -145,8 +145,8 @@ app.controller('sourceController', function(){
 	}
 
 	this.chicago = function(){
-		var inTextAuthor = this.source.authors[0].firstName, " ", this.source.authors[0].lastName;
-		var refAuthor = this.source.authors[0].lastName, ", ", this.source.authors[0].firstName;
+		var inTextAuthor = this.source.authors[0].firstName + " " + this.source.authors[0].lastName;
+		var refAuthor = this.source.authors[0].lastName + ", " + this.source.authors[0].firstName;
 		var numAuthors = this.source.authors.length;
 
 		if(type != 'website'){
@@ -327,12 +327,15 @@ app.controller('sourceController', function(){
 	this.search = function(query){
 		var xmlhttp = new XMLHttpRequest();
 		var key = "vqI5LRdlC8eFJARJqH2yjB27CmDPcMkgp3bc9mnRkfQbUS9micwMTpPjhSF5N4KyIp2Bo8QKSHolMgrA"
-		var searchUrl = String.concat("http://www.worldcat.org/webservices/catalog/search/worldcat/opensearch?q=", query, "&wskey=", key);
-		var citeUrl = String.concat("http://www.worldcat.org/webservices/catalog/content/citations/", queryOCLCNum, "?wskey=", key, "", );
-
+		var searchUrl = "";
+		searchUrl = searchUrl.concat("http://www.worldcat.org/webservices/catalog/search/worldcat/opensearch?q=", query, "&wskey=", key);
+		//var citeUrl = String.concat("http://www.worldcat.org/webservices/catalog/content/citations/", queryOCLCNum, "?wskey=", key, "", );
 
 		xmlhttp.open("GET", searchUrl, true);
 		xmlhttp.send();
+
+		xmlDocument = xmlhttp.responseXML;
+		console.log(xmlDocument.childNodes['0'].textContent);
 	};
 
 	this.resetAuthors = function(){
