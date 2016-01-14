@@ -1,3 +1,16 @@
+<form name="journalAuto" ng-submit="journalAuto.$valid && sourceCtrl.articleSearch('journalArticle')" novalidate>
+	<div class="form-group">
+		<label for="title">Auto-cite</label>
+		<input type="text" class="form-control" placeholder="Enter article title of keywords here..." ng-model="sourceCtrl.source.searchQuery" required>
+	</div>
+
+	<div class="form-group" ng-include src='"./referenceTypes.html"'></div>
+
+	<button class="btn btn-default" type="submit">Search</button>
+</form>
+
+<hr>
+
 <form name="journalForm" ng-submit="journalForm.$valid && sourceCtrl.generateReferences('journalArticle')" novalidate>
 	<div class="form-group">
 		<label for="title">Title</label>
@@ -8,7 +21,7 @@
 		<label for="year" class="control-label">Year</label>
 		
 		<select class="form-control" id="year" ng-model="sourceCtrl.source.year" required>
-			<option ng-repeat="year in generateYears(2015, 1880)">{{year}}</option>
+			<option ng-repeat="year in generateYears(2016, 1880)">{{year}}</option>
 		</select>
 	</div>
 
@@ -64,5 +77,5 @@
 	<div class="form-group" ng-include src='"./referenceTypes.html"'></div>
 
 	<button type="submit" class="btn btn-primary">Generate</button>
-	<button class="btn btn-default" type="button" ng-click="sourceCtrl.search('test')">Search</button>
-	</form>
+	
+</form>
