@@ -90,10 +90,10 @@
 
 				<div class="col-md-5 resultSpace">
 					<h2>Reference citation</h2>
-					<div class="well well-sm" ng-bind-html="sourceCtrl.source.reference | trustedhtml"></div>
+					<div class="well well-sm" ng-bind-html="source.reference | trustedhtml"></div>
 
 					<h2 style="padding-top: 15px;">In-text citation</h2>
-					<div class="well well-sm">{{sourceCtrl.source.inText}}</div>
+					<div class="well well-sm" ng-bind-html="source.inText | trustedhtml"></div>
 				</div>
 			</div>
 
@@ -108,6 +108,7 @@
 <script type="text/javascript" src="./biblioBuddy/mainApp.js"></script>
 <script type="text/javascript" src="./biblioBuddy/event/eventModule.js"></script>
 <script type="text/javascript" src="./biblioBuddy/controllers/sourceController.js"></script>
+<script type="text/javascript" src="./biblioBuddy/controllers/referenceFunctions.js"></script>
 <script type="text/javascript">
 	console.log("angular object", angular);
 

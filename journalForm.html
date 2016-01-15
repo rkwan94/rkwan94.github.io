@@ -1,26 +1,31 @@
-<form name="journalAuto" ng-submit="journalAuto.$valid && sourceCtrl.articleSearch('journalArticle')" novalidate>
+<form name="journalAuto" ng-submit="journalAuto.$valid && articleSearch('journalArticle')" novalidate>
 	<div class="form-group">
 		<label for="title">Auto-cite</label>
-		<input type="text" class="form-control" placeholder="Enter article title of keywords here..." ng-model="sourceCtrl.source.searchQuery" required>
+		<input type="text" class="form-control" placeholder="Enter article title of keywords here..." ng-model="source.searchQuery" required>
 	</div>
 
-	<div class="form-group" ng-include src='"./referenceTypes.html"'></div>
+	<div class="form-group">
+		<input type="radio" ng-model="source.refStyle" value="harvard" required> Harvard<br>
+		<input type="radio" ng-model="source.refStyle" value="uts"> Harvard UTS<br>
+		<input type="radio" ng-model="source.refStyle" value="apa"> APA<br>
+		<input type="radio" ng-model="source.refStyle" value="chicago"> Chicago<br>
+	</div>
 
 	<button class="btn btn-default" type="submit">Search</button>
 </form>
 
 <hr>
 
-<form name="journalForm" ng-submit="journalForm.$valid && sourceCtrl.generateReferences('journalArticle')" novalidate>
+<form name="journalForm" ng-submit="journalForm.$valid && generateReferences('journalArticle')" novalidate>
 	<div class="form-group">
 		<label for="title">Title</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.title" placeholder="Article Title" required>
+		<input type="text" class="form-control" ng-model="source.title" placeholder="Article Title" required>
 	</div>
 
 	<div class="form-group">
 		<label for="year" class="control-label">Year</label>
 		
-		<select class="form-control" id="year" ng-model="sourceCtrl.source.year" required>
+		<select class="form-control" id="year" ng-model="source.year" required>
 			<option ng-repeat="year in generateYears(2016, 1880)">{{year}}</option>
 		</select>
 	</div>
@@ -29,7 +34,7 @@
 		<label class="control-label">Authors</label>
 	</div>
 
-	<div ng-repeat="a in sourceCtrl.source.authors">
+	<div ng-repeat="a in source.authors">
 		<div class="form-group form-inline">
 
 			<div class="form-group">
@@ -46,35 +51,41 @@
 		</div>
 	</div>
 
-	<button class="btn btn-default" type="button" ng-click="sourceCtrl.addAuthor()">Add Author</button>
+	<button class="btn btn-default" type="button" ng-click="addAuthor()">Add Author</button>
 
-	<button class="btn btn-warning" type="button" ng-click="sourceCtrl.removeAuthor()" ng-disabled="sourceCtrl.numAuthors() == 1;">Remove Author</button>
+	<button class="btn btn-warning" type="button" ng-click="removeAuthor()" ng-disabled="numAuthors() == 1;">Remove Author</button>
 
 	<hr>
 
 	<div class="form-group">
 		<label for="journal">Journal Name</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.journal" placeholder="Journal Name" required>
+		<input type="text" class="form-control" ng-model="source.journal" placeholder="Journal Name" required>
 
 	</div>
 
 	<div class="form-group form-inline">
 	  <div class="form-group">
 	    <label for="volumeNum">Journal No. </label>
-	    <input type="text" class="form-control" ng-model="sourceCtrl.source.journalNum" placeholder="Volume Number">
+	    <input type="text" class="form-control" ng-model="source.journalNum" placeholder="Volume Number">
 	  </div>
 	  <div class="form-group">
 	    <label for="issueNum">Issue No. </label>
-	    <input type="text" class="form-control" ng-model="sourceCtrl.source.issueNum" placeholder="Issue Number">
+	    <input type="text" class="form-control" ng-model="source.issueNum" placeholder="Issue Number">
 	  </div>
 	</div>
 
 	<div class="form-group">
 		<label for="cityPublished">Pages Used</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.pagesUsed" placeholder="Pages Used (pp 1-5)" required>
+		<input type="text" class="form-control" ng-model="source.pagesUsed" placeholder="Pages Used (pp 1-5)" required>
 	</div>
 
-	<div class="form-group" ng-include src='"./referenceTypes.html"'></div>
+	<!--<div class="form-group" ng-include src='"./referenceTypes.html"'></div>-->
+	<div class="form-group">
+		<input type="radio" ng-model="source.refStyle" value="harvard" required> Harvard<br>
+		<input type="radio" ng-model="source.refStyle" value="uts"> Harvard UTS<br>
+		<input type="radio" ng-model="source.refStyle" value="apa"> APA<br>
+		<input type="radio" ng-model="source.refStyle" value="chicago"> Chicago<br>
+	</div>
 
 	<button type="submit" class="btn btn-primary">Generate</button>
 	

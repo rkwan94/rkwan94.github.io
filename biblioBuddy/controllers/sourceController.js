@@ -1,4 +1,4 @@
-app.controller('sourceController', function(){
+app.controller('sourceController', function($scope, $http){
 	monthNames = [
 		"January",
 		"February",
@@ -39,13 +39,13 @@ app.controller('sourceController', function(){
 	};
 
 	function replaceSource(newSource){
-		this.source = newSource;	
+		$scope.source = newSource;	
 		generateReferences('journalArticle');
 
-		console.log(this.source);
+		console.log($scope.source);
 	};
 
-	this.source = {
+	$scope.source = {
 		authors: [
 			{
 				count: 1,
@@ -55,364 +55,95 @@ app.controller('sourceController', function(){
 		],
 	};
 
-	function numAuthors(){
-		return this.source.authors.length;
+	$scope.numAuthors = function(){
+		return $scope.source.authors.length;
 	}
 
-	this.addAuthor = function(){
-		var numAuth = numAuthors();
+	$scope.addAuthor = function(){
+		var numAuth = $scope.numAuthors();
 		var newAuthor= {
 			count: numAuth+1,
 			firstName: "",
 			lastName: ""
 		}
 
-		this.source.authors[numAuth] = newAuthor;
+		$scope.source.authors[numAuth] = newAuthor;
 	};
 
-	function removeAuthor(){
-		if(this.source.authors.length > 1){
-			var dummy = this.source.authors.pop();
+	$scope.removeAuthor = function(){
+		if($scope.source.authors.length > 1){
+			var dummy = $scope.source.authors.pop();
 		}
 	};
 
-	function initialisedName(author){
-		var nameString = "";
-		var firstNames = author.firstName.split(" ");
-		for(var i = 0; i < firstNames.length; i++){
-			initials = this.source.refStyle === "uts" || this.source.refStyle === "apa" ? nameString + firstNames[i].charAt(0) + "." : nameString + firstNames[i].charAt(0);
-		}
-		nameString =  author.lastName + ", " + initials;
-		return nameString;
-	};
+	$scope.generateReferences = function(type){
+		var citations;
+		$scope.source.sourceType = type;
 
-	function inTextAuthorCitation(){
-		var numAuth = numAuthors();
-		var inTextAuthor = this.source.authors[0].lastName;
-
-		for (var i = 1; i < numAuth-1; i++) {
-			inTextAuthor = 	inTextAuthor + ", " + this.source.authors[i].lastName;
-		}
-
-		inTextAuthor = numAuth === 1 ? this.source.authors[0].lastName : inTextAuthor + " & " + this.source.authors[numAuth-1].lastName;
-
-		return inTextAuthor;
-	}
-
-	function referenceAuthorCitation(){
-		var numAuth = numAuthors();
-		var referenceAuthor = initialisedName(this.source.authors[0]);
-
-		for (var i = 1; i < numAuth-1; i++) {
-			referenceAuthor = 	referenceAuthor + ", " + initialisedName(this.source.authors[i]);
-		}
-
-		if(this.source.refStyle == "apa"){
-			if (numAuth > 1){
-				referenceAuthor = referenceAuthor + ", & " + initialisedName(this.source.authors[numAuth-1]);
-			}
-		}else{
-			if (numAuth > 1){
-				referenceAuthor = referenceAuthor + " & " + initialisedName(this.source.authors[numAuth-1]);
-			}
-		}
-		
-		return referenceAuthor;
-	}
-
-	function apa(){
-		var inTextAuthor = "";
-		var numAuth = this.source.authors.length;
-
-		if(numAuth > 3){
-			inTextAuthor = this.source.authors[0].lastName + " et. al";
-		}else{
-			inTextAuthor = inTextAuthorCitation();
-		}
-		this.source.inText = "(" + inTextAuthor + " " + this.source.year + ")";
-
-		if(this.source.sourceType == 'website'){
-			this.source.reference = this.source.hasOwnProperty('author') ? referenceAuthorCitation() : this.source.reference.concat(this.source.siteName, ", ");
-			this.source.reference = this.source.hasOwnProperty('year') ? this.source.reference.concat(" (", this.source.year, "). ") : this.source.reference.concat(" n.d. ");
-		}else if(this.source.sourceType == 'newsOrMag'){
-			this.source.reference = referenceAuthorCitation();
-			this.source.reference = this.source.reference.concat(" (", this.source.year, ", ");
-		}else{
-			this.source.reference = referenceAuthorCitation();
-			this.source.reference = this.source.reference.concat(" (", this.source.year, "). ");
-		}
-
-		if(this.source.sourceType == 'book'){	
-			this.source.reference = this.source.reference.concat("<i>", this.source.title, "</i>, ");
-
-			if(this.source.hasOwnProperty('edition')){
-				this.source.reference = this.source.reference.concat("(", this.source.edition, "ed.). ");			
-			}
-
-			this.source.reference = this.source.reference.concat(this.source.cityPublished, ": ");
-			this.source.reference = this.source.reference.concat(this.source.publisher, ".");			
-		}else if(this.source.sourceType == 'journalArticle'){
-			this.source.reference = this.source.reference.concat(this.source.title, ". ");
-			this.source.reference = this.source.reference.concat("<i>", this.source.journal, "</i>, ");
-			this.source.reference = this.source.reference.concat(this.source.journalNum);
-			this.source.reference = this.source.reference.concat("(", this.source.issueNum, "), ");
-			this.source.reference = this.source.reference.concat(this.source.pagesUsed, ".");
-		}else if(this.source.sourceType == 'website'){
-			this.source.reference = this.source.reference.concat(this.source.pageTitle);
-
-			if(this.source.hasOwnProperty('author')){
-				this.source.reference = this.source.reference.concat("<i>", this.source.siteName, "</i>. ");
-			}
-			
-			this.source.reference = this.source.reference.concat("Retrieved ", this.source.date.getDate(), " ", monthNames[this.source.date.getMonth()], " ", this.source.date.getFullYear(), ", ");
-			this.source.reference = this.source.reference.concat("from ", this.source.url);			
-		}else if(this.source.sourceType == 'newsOrMag'){
-			this.source.reference = this.source.reference.concat(monthNames[this.source.date.getMonth()], " ", this.source.date.getDate(), "). ");
-			this.source.reference = this.source.reference.concat(this.source.articleTitle, ". ");
-			this.source.reference = this.source.reference.concat("<i>", this.source.paperName, "</i>");
-			
-			this.source.reference = this.source.hasOwnProperty('pagesUsed') ? this.source.reference.concat(", p. ", this.source.pagesUsed, ".") : this.source.reference.concat(".");
-		}
-	}
-
-	function chicago(){
-		var inTextAuthor = this.source.authors[0].firstName + " " + this.source.authors[0].lastName;
-		var refAuthor = this.source.authors[0].lastName + ", " + this.source.authors[0].firstName;
-		var numAuth = this.source.authors.length;
-
-		if(this.source.sourceType != 'website'){
-			if(numAuth < 4){
-				for(var i = 1; i < numAuth-1; i++){
-					inTextAuthor = inTextAuthor.concat(", ", this.source.authors[i].firstName, " ", this.source.authors[i].lastName);
-					refAuthor = refAuthor.concat(", ", this.source.authors[i].firstName, " ", this.source.authors[i].lastName);
-				}
-	
-				inTextAuthor = inTextAuthor.concat(" and ", this.source.authors[numAuth-1].firstName, " ", this.source.authors[numAuth-1].lastName, ", ");
-			}else{
-				for(var i = 1; i < numAuth-1; i++){
-					refAuthor = refAuthor.concat(", ", this.source.authors[i].firstName, " ", this.source.authors[i].lastName);
-				}
-				inTextAuthor = inTextAuthor.concat(" et al., ");
-			}
-		}
-		this.source.inText = this.source.inText.concat(inTextAuthor);
-		this.source.reference = this.source.reference.concat(refAuthor);
-
-
-		if(this.source.sourceType == 'book'){
-			this.source.inText = this.source.inText.concat("<i>", this.source.title, "</i> ");
-			this.source.inText = this.source.inText.concat("(", this.source.cityPublished, ": ");
-			this.source.inText = this.source.inText.concat(this.source.publisher, ", ");
-			this.source.inText = this.source.inText.concat(this.source.year, "), ");
-			this.source.inText = this.source.inText.concat(this.source.pagesUsed, ".");
-
-			this.source.reference = this.source.reference.concat("<i>", this.source.title, "</i>. ");
-			this.source.reference = this.source.reference.concat(this.source.cityPublished, ": ");
-			this.source.reference = this.source.reference.concat(this.source.publisher, ", ");
-			this.source.reference = this.source.reference.concat(this.source.year, ".");
-		}else if(this.source.sourceType == 'journalArticle'){
-			this.source.inText = this.source.inText.concat(', "', this.source.title, '," ');
-			this.source.inText = this.source.inText.concat("<i>", this.source.journal, "</i> ");
-			this.source.inText = this.source.inText.concat(this.source.journalNum, ", ");
-			this.source.inText = this.source.inText.concat("no. ", this.source.issueNum, " (");
-			this.source.inText = this.source.inText.concat(this.source.year, "): ");
-			this.source.inText = this.source.inText.concat(this.source.pagesUsed, ".");
-
-			this.source.reference = this.source.reference.concat(', "', this.source.title, '," ');
-			this.source.reference = this.source.reference.concat("<i>", this.source.journal, "</i> ");
-			this.source.reference = this.source.reference.concat(this.source.journalNum, ", ");
-			this.source.reference = this.source.reference.concat("no. ", this.source.issueNum, " (");
-			this.source.reference = this.source.reference.concat(this.source.year, "): ");
-			this.source.reference = this.source.reference.concat(this.source.pagesUsed, ".");
-		}else if(this.source.sourceType == 'website'){
-			this.source.inText = this.source.inText.concat('"', this.source.pageTitle, '," ');
-			this.source.inText = this.source.inText.concat(this.source.siteName, ", ");
-			this.source.inText = this.source.inText.concat("Date accessed ", this.source.date.getDate(), " ", monthNames[this.source.date.getMonth()], ", ", this.source.date.getFullYear(), ".");
-
-			this.source.reference = this.source.inText;
-			this.source.reference = this.source.reference.concat(" ", this.source.url, ".");
-		}else if(this.source.sourceType == 'newsOrMag'){
-			this.source.inText = this.source.inText.concat(', "', this.source.articleTitle, '," ');
-			this.source.inText = this.source.inText.concat("<i>", this.source.paperName, "</i> (");
-			this.source.inText = this.source.inText.concat(this.source.date.getDate(), " ", monthNames[this.source.date.getMonth()], "): ");
-			this.source.inText = this.source.hasOwnProperty('pagesUsed') ? this.source.reference.concat(", ", this.source.pagesUsed, ".") : this.source.reference.concat(".");
-
-			this.source.reference = this.source.reference.concat(', "', this.source.articleTitle, '," ');
-			this.source.reference = this.source.reference.concat("<i>", this.source.paperName, "</i> (");
-			this.source.reference = this.source.reference.concat(this.source.date.getDate(), " ", monthNames[this.source.date.getMonth()], "): ");
-			this.source.reference = this.source.hasOwnProperty('pagesUsed') ? this.source.reference.concat(", ", this.source.pagesUsed, ".") : this.source.reference.concat(".");
-		}
-	}
-
-	function harvard(){
-		var inTextAuthor = "";
-		var numAuth = this.source.authors.length;
-
-		if(numAuth > 3){
-			inTextAuthor = this.source.authors[0].lastName + " et. al";
-		}else{
-			inTextAuthor = inTextAuthorCitation();
-		}
-		this.source.inText = "(" + inTextAuthor + " " + this.source.year + ")";
-
-		if(this.source.sourceType == 'website'){
-			this.source.reference = this.source.hasOwnProperty('author') ? referenceAuthorCitation() : '';
-			this.source.reference = this.source.hasOwnProperty('year') ? this.source.reference.concat(" ", this.source.year, ", ") : this.source.reference.concat(" n.d. ");
-		}else{
-			this.source.reference = referenceAuthorCitation();
-			this.source.reference = this.source.reference.concat(" ", this.source.year, ", ");
-		}
-
-		if(this.source.sourceType == 'book'){	
-			this.source.reference = this.source.reference.concat("<i>", this.source.title, "</i>, ");
-
-			if(this.source.hasOwnProperty('edition')){
-				this.source.reference = this.source.reference.concat(this.source.edition, "edn, ");		
-			}
-
-			this.source.reference = this.source.reference.concat(this.source.publisher, ", ");
-			this.source.reference = this.source.reference.concat(this.source.cityPublished, ".");
-		}else if(this.source.sourceType == 'journalArticle'){
-			this.source.reference = this.source.reference.concat("'", this.source.title, "', ");
-			this.source.reference = this.source.reference.concat("<i>", this.source.journal, "</i>, ");
-			this.source.reference = this.source.reference.concat("vol. ", this.source.journalNum, ", ");
-			
-			if(this.source.hasOwnProperty('issueNum')){
-				this.source.reference = this.source.reference.concat("no. ", this.source.issueNum, ", ");
-			}
-
-			this.source.reference = this.source.reference.concat("pp. ", this.source.pagesUsed, ".");
-		}else if(this.source.sourceType == 'website'){
-			this.source.reference = this.source.reference.concat("<i>", this.source.pageTitle, "</i>, ");
-			this.source.reference = this.source.reference.concat(this.source.siteName, ", ");
-			this.source.reference = this.source.reference.concat("viewed ", this.source.date.getDate(), " ", monthNames[this.source.date.getMonth()], " ", this.source.date.getFullYear(), ", ");
-			this.source.reference = this.source.reference.concat(this.source.url);
-		}else if(this.source.sourceType == 'newsOrMag'){
-			this.source.reference = this.source.reference.concat("'", this.source.articleTitle, "', ");
-			this.source.reference = this.source.reference.concat("<i>", this.source.paperName, "</i>, ");
-			this.source.reference = this.source.reference.concat(this.source.date.getDate(), " ", monthNames[this.source.date.getMonth()]);
-			this.source.reference = this.source.hasOwnProperty('pagesUsed') ? this.source.reference.concat(", ", this.source.pagesUsed, ".") : this.source.reference.concat(".");
-		}
-	}
-
-	function harvardUTS(){
-		var inTextAuthor = "";
-		var numAuth = this.source.authors.length;
-
-		if(numAuth > 3){
-			inTextAuthor = this.source.authors[0].lastName + " et. al";
-		}else{
-			inTextAuthor = inTextAuthorCitation();
-		}
-		this.source.inText = "(" + inTextAuthor + " " + this.source.year + ")";
-
-		if(this.source.sourceType == 'website'){
-			this.source.reference = this.source.hasOwnProperty('author') ? referenceAuthorCitation() : '';
-			this.source.reference = this.source.hasOwnProperty('year') ? this.source.reference.concat(" ", this.source.year, ", ") : this.source.reference.concat(" n.d. ");
-		}else{
-			this.source.reference = referenceAuthorCitation();
-			this.source.reference = this.source.reference.concat(" ", this.source.year, ", ");
-		}
-
-		if(this.source.sourceType == 'book'){	
-			this.source.reference = this.source.reference.concat("<i>", this.source.title, "</i>, ");
-
-			if(this.source.hasOwnProperty('edition')){
-				this.source.reference = this.source.reference.concat(this.source.edition, "edn, ");		
-			}
-
-			this.source.reference = this.source.reference.concat(this.source.publisher, ", ");
-			this.source.reference = this.source.reference.concat(this.source.cityPublished, ".");
-		}else if(this.source.sourceType == 'journalArticle'){
-			this.source.reference = this.source.reference.concat("'", this.source.title, "', ");
-			this.source.reference = this.source.reference.concat("<i>", this.source.journal, "</i>, ");
-			this.source.reference = this.source.reference.concat("vol. ", this.source.journalNum, ", ");
-			
-			if(this.source.hasOwnProperty('issueNum')){
-				this.source.reference = this.source.reference.concat("no. ", this.source.issueNum, ", ");
-			}
-			
-			this.source.reference = this.source.reference.concat("pp. ", this.source.pagesUsed, ".");
-		}else if(this.source.sourceType == 'website'){
-			this.source.reference = this.source.reference.concat("<i>", this.source.pageTitle, "</i>, ");
-			this.source.reference = this.source.reference.concat(this.source.siteName, ", ");
-			this.source.reference = this.source.reference.concat("viewed ", this.source.date.getDate(), " ", monthNames[this.source.date.getMonth()], " ", this.source.date.getFullYear(), ", ");
-			this.source.reference = this.source.reference.concat("<", this.source.url, ">");		
-		}else if(this.source.sourceType == 'newsOrMag'){
-			this.source.reference = this.source.reference.concat("'", this.source.articleTitle, "', ");
-			this.source.reference = this.source.reference.concat("<i>", this.source.paperName, "</i>, ");
-			this.source.reference = this.source.reference.concat(this.source.date.getDate(), " ", monthNames[this.source.date.getMonth()]);
-			this.source.reference = this.source.hasOwnProperty('pagesUsed') ? this.source.reference.concat(", ", this.source.pagesUsed, ".") : this.source.reference.concat(".");
-		}
-	}
-
-	function generateReferences(type){
-		this.source.sourceType = type;
-
-		console.log(this.source);
-		var refStyle = this.source.refStyle;
-		this.source.reference = "";
-		this.source.inText = "";
+		console.log($scope.source);
+		var refStyle = $scope.source.refStyle;
+		$scope.source.reference = "";
+		$scope.source.inText = "";
 		
 		if(refStyle == "harvard"){
-			harvard();
+			citations = harvard($scope.source);
 		}else if(refStyle == "uts"){
-			harvardUTS();
+			citations = harvardUTS($scope.source);
 		}else if(refStyle == "apa"){
-			apa();
+			citations = apa($scope.source);
 		}else{
-			chicago();
+			citations = chicago($scope.source);
 		}
+		console.log(citations);
+		$scope.source.reference = citations.reference;
+		$scope.source.inText = citations.inText;
 	};
 
 	
 
-	this.articleSearch = function(type){
+	$scope.articleSearch = function(type){
 		var searchUrl = "";
 
 		searchUrl = searchUrl.concat("http://api.crossref.org/works?query=", 
-			encodeURIComponent(this.source.searchQuery));
+			encodeURIComponent($scope.source.searchQuery));
 
+		console.log($scope.source);
 
-		var newSource = this.source;
+		$http({method: 'GET', url: searchUrl}).
+			success(function(data, status) {
+				console.log(data);
+				console.log($scope.source);
+				console.log(data.message.items[0]);
 
-		$.getJSON(searchUrl, function(data){
-			console.log(newSource);
-			
-			console.log(data.message.items[0]);
+				var record = data.message.items[0];
+				$scope.source.title = record.title[0];
+				var authors = [];
 
-			var record = data.message.items[0];
+				for(var i = 0; i < record.author.length; i++){
+					var a = {};
+					a.count = i + 1;
+					a.lastName = record.author[i].family;
+					a.firstName = record.author[i].given;
 
-			newSource.title = record.title[0];
-			var authors = [];
+					authors.push(a);
+				}
 
-			for(var i = 0; i < record.author.length; i++){
-				var a = {};
-				a.count = i + 1;
-				a.lastName = record.author[i].family;
-				a.firstName = record.author[i].given;
-
-				authors.push(a);
+				$scope.source.authors = authors;
+				$scope.source.sourceType = "journalArticle";
+				$scope.source.year = record['published-print']['date-parts'][0][0];
+				$scope.source.journal = record['container-title'][0];
+				$scope.source.journalNum = record.volume;
+				$scope.source.pagesUsed = record.page;
+				$scope.generateReferences("journalArticle");
+			}).
+			error(function(data, status) {
+				console.log(data || "Request failed");
 			}
-
-			newSource.authors = authors;
-
-			newSource.sourceType = "journalArticle";
-
-			newSource.year = record['published-print']['date-parts'][0][0];
-
-			newSource.journal = record['container-title'][0];
-
-			newSource.journalNum = record.volume;
-
-			newSource.pagesUsed = record.page;
-			
-			replaceSource(newSource);
-		});
+		); 
 
 	};
 
-	this.bookSearch = function(query){
+	$scope.bookSearch = function(query){
 		var key = "vqI5LRdlC8eFJARJqH2yjB27CmDPcMkgp3bc9mnRkfQbUS9micwMTpPjhSF5N4KyIp2Bo8QKSHolMgrA"
 		var searchUrl = "";
 
@@ -446,8 +177,8 @@ app.controller('sourceController', function(){
 		});
 	};
 
-	this.resetAuthors = function(){
-		this.source.authors = [
+	$scope.resetAuthors = function(){
+		$scope.source.authors = [
 			{
 				count: 1,
 				firstName: "",
