@@ -55,6 +55,8 @@ app.controller('sourceController', function($scope, $http){
 		],
 	};
 
+	$scope.loading = false;
+
 	$scope.numAuthors = function(){
 		return $scope.source.authors.length;
 	}
@@ -101,7 +103,7 @@ app.controller('sourceController', function($scope, $http){
 
 	
 
-	$scope.articleSearch = function(type){
+	$scope.articleSearch = function(){
 		var searchUrl = "";
 
 		searchUrl = searchUrl.concat("http://api.crossref.org/works?query=", 
@@ -143,38 +145,80 @@ app.controller('sourceController', function($scope, $http){
 
 	};
 
-	$scope.bookSearch = function(query){
-		var key = "vqI5LRdlC8eFJARJqH2yjB27CmDPcMkgp3bc9mnRkfQbUS9micwMTpPjhSF5N4KyIp2Bo8QKSHolMgrA"
+	$scope.bookSearch = function(){
+		/*
+		var apiKey = "AIzaSyCOZcPmnAWUiwshztvK-ZIhOMXEL5TtGNk";
 		var searchUrl = "";
 
-		searchUrl = searchUrl.concat("http://www.worldcat.org/webservices/catalog/search/worldcat/opensearch?q=", 
-			encodeURIComponent(query), 
-			"&wskey=", 
-			key);
+		searchUrl = searchUrl.concat("https://www.googleapis.com/books/v1/volumes?q=", 
+			encodeURIComponent($scope.source.searchQuery),
+			"&key=",
+			apiKey);
+		*/
 
-		// build the yql query. Could be just a string - I think join makes easier reading
-		var yqlURL = [
-			"http://query.yahooapis.com/v1/public/yql",
-			"?q=" + encodeURIComponent("select * from xml where url='" + searchUrl + "'"),
-			"&format=xml&callback=?"
-		].join("");
+		var searchUrl = "";
 
-		// Now do the AJAX heavy lifting        
-		$.getJSON(yqlURL, function(data){
-			xmlContent = $(data.results[0]);
-			console.log(xmlContent);
-			//var Abstract = $(xmlContent).find("title").text();
-			for(var i = 0; i < xmlContent[0].childNodes.length; i++){
-				var node = xmlContent[0].childNodes[i];
-				if(node.nodeName == "ENTRY"){
-					console.log(node);
-				}
+		searchUrl = searchUrl.concat("https://openlibrary.org/search.json?q=", 
+			encodeURIComponent($scope.source.searchQuery));
+
+		$http({method: 'GET', url: searchUrl}).
+			success(function(data, status) {
+				console.log(data);
+				console.log($scope.source);
+
 				
-				//console.log(node.nodeName + "-> " + node.nodeValue);
-			}
+				console.log(data.docs[0]);
 
-			
-		});
+				var record = data.docs[0];
+				$scope.source.title = record.title;
+				var authors = [];
+
+				for(var i = 0; i < record.author_name.length; i++){
+					var names = record.author_name[i].split(' ');
+					var a = {};
+					a.count = i + 1;
+					a.lastName = names[names.length-1];
+					a.firstName = names[0];
+
+					authors.push(a);
+				}
+
+				if(record.edition_count%10 == 1){
+					$scope.source.edition = "1st";
+				}else if (record.edition_count%10 == 2){
+					$scope.source.edition = "2nd";
+				}else if (record.edition_count%10 == 3){
+					$scope.source.edition = "3rd";
+				}else{
+					$scope.source.edition = record.edition_count+"th";
+				}
+
+				$scope.source.authors = authors;
+				$scope.source.sourceType = "book";
+				$scope.source.year = record.publish_year[0];
+				$scope.source.publisher = record.publisher[0];
+
+				$scope.generateReferences("book");
+			}).
+			error(function(data, status) {
+				console.log(data || "Request failed");
+			}
+		);
+	};
+
+	$scope.ajaxAction = function(resource){
+		$scope.loading = true;
+		
+		setTimeout(function(){
+		  //your code to be executed after 1 seconds
+		  
+		}, 1000000); 
+		if(resource == "journalArticle"){
+			$scope.articleSearch();
+		}else{
+			$scope.bookSearch();
+		}
+		$scope.loading = false;
 	};
 
 	$scope.resetAuthors = function(){

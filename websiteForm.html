@@ -1,18 +1,18 @@
-<form name="websiteForm" ng-submit="websiteForm.$valid && sourceCtrl.generateReferences('website')" novalidate>
+<form name="websiteForm" ng-submit="websiteForm.$valid && generateReferences('website')" novalidate>
 	<div class="form-group">
 		<label for="siteName">Website Name</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.siteName" placeholder="Website Name" required>
+		<input type="text" class="form-control" ng-model="source.siteName" placeholder="Website Name" required>
 	</div>
 
 	<div class="form-group">
 		<label for="pageTitle">Page Title</label>
-		<input type="text" class="form-control" ng-model="sourceCtrl.source.pageTitle" placeholder="Page Title" required>
+		<input type="text" class="form-control" ng-model="source.pageTitle" placeholder="Page Title" required>
 	</div>
 
 	<div class="form-group">
 		<label for="year" class="control-label">Year Published</label>
 		
-		<select class="form-control" id="year" ng-model="sourceCtrl.source.year">
+		<select class="form-control" id="year" ng-model="source.year">
 			<option ng-repeat="year in generateYears(2015, 1975)">{{year}}</option>
 		</select>
 	</div>
@@ -21,7 +21,7 @@
 		<label class="control-label">Authors</label>
 	</div>
 
-	<div ng-repeat="a in sourceCtrl.source.authors">
+	<div ng-repeat="a in source.authors">
 		<div class="form-group form-inline">
 
 			<div class="form-group">
@@ -38,24 +38,29 @@
 		</div>
 	</div>
 
-	<button class="btn btn-default" type="button" ng-click="sourceCtrl.addAuthor()">Add Author</button>
+	<button class="btn btn-default" type="button" ng-click="addAuthor()">Add Author</button>
 
-	<button class="btn btn-warning" type="button" ng-click="sourceCtrl.removeAuthor()" ng-disabled="sourceCtrl.numAuthors() == 1;">Remove Author</button>
+	<button class="btn btn-warning" type="button" ng-click="removeAuthor()" ng-disabled="numAuthors() == 1;">Remove Author</button>
 
 	<hr>
 
 	<div class="form-group">
 		<label for="url">URL</label>
-		<input type="url" class="form-control" ng-model="sourceCtrl.source.url" placeholder="http://" required>
+		<input type="url" class="form-control" ng-model="source.url" placeholder="http://" required>
 
 	</div>
 
 	<div class="form-group">
 		<label for="dateAccessed">Date accessed</label>
-		<input type="date" class="form-control" id="datePickerWebsite" ng-model="sourceCtrl.source.date" required>
+		<input type="date" class="form-control" id="datePickerWebsite" ng-model="source.date" required>
 	</div>
 
-	<div class="form-group" ng-include src='"./referenceTypes.html"'></div>
+	<div class="form-group">
+		<input type="radio" ng-model="source.refStyle" value="harvard" required> Harvard<br>
+		<input type="radio" ng-model="source.refStyle" value="uts"> Harvard UTS<br>
+		<input type="radio" ng-model="source.refStyle" value="apa"> APA<br>
+		<input type="radio" ng-model="source.refStyle" value="chicago"> Chicago<br>
+	</div>
 
 	<button type="submit" class="btn btn-primary">Generate</button>
 	</form>

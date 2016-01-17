@@ -1,4 +1,4 @@
-<form name="journalAuto" ng-submit="journalAuto.$valid && articleSearch('journalArticle')" novalidate>
+<form name="journalAuto" ng-submit="journalAuto.$valid && ajaxAction('journalArticle')" novalidate>
 	<div class="form-group">
 		<label for="title">Auto-cite</label>
 		<input type="text" class="form-control" placeholder="Enter article title of keywords here..." ng-model="source.searchQuery" required>

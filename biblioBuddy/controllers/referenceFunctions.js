@@ -205,11 +205,18 @@ function harvard(source){
 		refObject.reference = refObject.reference.concat("<i>", source.title, "</i>, ");
 
 		if(source.hasOwnProperty('edition')){
-			refObject.reference = refObject.reference.concat(source.edition, "edn, ");		
+			refObject.reference = refObject.reference.concat(source.edition, " edn, ");		
 		}
 
-		refObject.reference = refObject.reference.concat(source.publisher, ", ");
-		refObject.reference = refObject.reference.concat(source.cityPublished, ".");
+		
+
+		if(source.hasOwnProperty('cityPublished')){
+			refObject.reference = refObject.reference.concat(source.publisher, ", ");
+			refObject.reference = refObject.reference.concat(source.cityPublished, ".");	
+		}else{
+			refObject.reference = refObject.reference.concat(source.publisher, ".");
+		}
+		
 	}else if(source.sourceType == 'journalArticle'){
 		refObject.reference = refObject.reference.concat("'", source.title, "', ");
 		refObject.reference = refObject.reference.concat("<i>", source.journal, "</i>, ");
