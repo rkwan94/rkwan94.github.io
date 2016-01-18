@@ -1,7 +1,7 @@
 <form name="bookAuto" ng-submit="bookAuto.$valid && ajaxAction('book')" novalidate>
 	<div class="form-group">
 		<label for="title">Auto-cite</label>
-		<input type="text" class="form-control" placeholder="Enter book title here..." ng-model="source.searchQuery" required>
+		<input type="text" class="form-control" placeholder="Enter book title or ISBN here..." ng-model="source.searchQuery" required>
 	</div>
 
 	<div class="form-group">
@@ -16,7 +16,7 @@
 		<input type="radio" ng-model="source.refStyle" value="chicago"> Chicago<br>
 	</div>
 
-	<button class="btn btn-default" type="submit">Search</button>
+	<button class="btn btn-default" type="submit">Auto-cite</button>
 </form>
 
 <hr>
@@ -31,7 +31,7 @@
 		<label for="year" class="control-label">Year</label>
 		
 		<select class="form-control" ng-model="source.year" required>
-			<option ng-repeat="year in generateYears(2015, 1800)">{{year}}</option>
+			<option ng-repeat="year in generateYears(2016, 1800)">{{year}}</option>
 		</select>
 	</div>
 

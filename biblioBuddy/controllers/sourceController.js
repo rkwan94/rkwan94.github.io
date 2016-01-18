@@ -38,13 +38,6 @@ app.controller('sourceController', function($scope, $http){
 	  return xhr;
 	};
 
-	function replaceSource(newSource){
-		$scope.source = newSource;	
-		generateReferences('journalArticle');
-
-		console.log($scope.source);
-	};
-
 	$scope.source = {
 		authors: [
 			{
@@ -109,7 +102,6 @@ app.controller('sourceController', function($scope, $http){
 		searchUrl = searchUrl.concat("http://api.crossref.org/works?query=", 
 			encodeURIComponent($scope.source.searchQuery));
 
-		console.log($scope.source);
 
 		$http({method: 'GET', url: searchUrl}).
 			success(function(data, status) {
