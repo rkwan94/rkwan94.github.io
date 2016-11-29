@@ -45,14 +45,14 @@ app.controller('sourceController', function($scope, $http){
 				firstName: "",
 				lastName: ""
 			}
-		],
+		]
 	};
 
 	$scope.loading = false;
 
 	$scope.numAuthors = function(){
 		return $scope.source.authors.length;
-	}
+	};
 
 	$scope.addAuthor = function(){
 		var numAuth = $scope.numAuthors();
@@ -60,7 +60,7 @@ app.controller('sourceController', function($scope, $http){
 			count: numAuth+1,
 			firstName: "",
 			lastName: ""
-		}
+		};
 
 		$scope.source.authors[numAuth] = newAuthor;
 	};
@@ -79,8 +79,8 @@ app.controller('sourceController', function($scope, $http){
 		var refStyle = $scope.source.refStyle;
 		$scope.source.reference = "";
 		$scope.source.inText = "";
-		
-		if(refStyle == "harvard"){
+
+    if(refStyle == "harvard"){
 			citations = harvard($scope.source);
 		}else if(refStyle == "uts"){
 			citations = harvardUTS($scope.source);
@@ -94,12 +94,10 @@ app.controller('sourceController', function($scope, $http){
 		$scope.source.inText = citations.inText;
 	};
 
-	
-
 	$scope.articleSearch = function(){
 		var searchUrl = "";
 
-		searchUrl = searchUrl.concat("http://api.crossref.org/works?query=", 
+		searchUrl = searchUrl.concat("http://api.crossref.org/works?query=",
 			encodeURIComponent($scope.source.searchQuery));
 
 
@@ -133,34 +131,16 @@ app.controller('sourceController', function($scope, $http){
 			error(function(data, status) {
 				console.log(data || "Request failed");
 			}
-		); 
+		);
 
 	};
 
 	$scope.bookSearch = function(){
-		/*
-		var apiKey = "AIzaSyCOZcPmnAWUiwshztvK-ZIhOMXEL5TtGNk";
-		var searchUrl = "";
-
-		searchUrl = searchUrl.concat("https://www.googleapis.com/books/v1/volumes?q=", 
-			encodeURIComponent($scope.source.searchQuery),
-			"&key=",
-			apiKey);
-		*/
-
-		var searchUrl = "";
-
-		searchUrl = searchUrl.concat("https://openlibrary.org/search.json?q=", 
+		var searchUrl = "".concat("https://openlibrary.org/search.json?q=",
 			encodeURIComponent($scope.source.searchQuery));
 
 		$http({method: 'GET', url: searchUrl}).
 			success(function(data, status) {
-				console.log(data);
-				console.log($scope.source);
-
-				
-				console.log(data.docs[0]);
-
 				var record = data.docs[0];
 				$scope.source.title = record.title;
 				var authors = [];
@@ -200,11 +180,7 @@ app.controller('sourceController', function($scope, $http){
 
 	$scope.ajaxAction = function(resource){
 		$scope.loading = true;
-		
-		setTimeout(function(){
-		  //your code to be executed after 1 seconds
-		  
-		}, 1000000); 
+
 		if(resource == "journalArticle"){
 			$scope.articleSearch();
 		}else{
@@ -220,10 +196,10 @@ app.controller('sourceController', function($scope, $http){
 				firstName: "",
 				lastName: ""
 			}
-		]
+		];
 	};
 });
 
-app.filter('trustedhtml', ['$sce', function($sce) { 
-      return $sce.trustAsHtml; 
+app.filter('trustedhtml', ['$sce', function($sce) {
+  return $sce.trustAsHtml;
 }]);

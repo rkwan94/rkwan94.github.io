@@ -38,7 +38,7 @@ function referenceAuthorCitation(source){
 			referenceAuthor = referenceAuthor + " & " + initialisedName(source.authors[numAuth-1], source);
 		}
 	}
-	
+
 	return referenceAuthor;
 }
 
@@ -68,15 +68,15 @@ function apa(source){
 		refObject.reference = refObject.reference.concat(" (", source.year, "). ");
 	}
 
-	if(source.sourceType == 'book'){	
+	if(source.sourceType == 'book'){
 		refObject.reference = refObject.reference.concat("<i>", source.title, "</i>, ");
 
 		if(source.hasOwnProperty('edition')){
-			refObject.reference = refObject.reference.concat("(", source.edition, "ed.). ");			
+			refObject.reference = refObject.reference.concat("(", source.edition, "ed.). ");
 		}
 
 		refObject.reference = refObject.reference.concat(source.cityPublished, ": ");
-		refObject.reference = refObject.reference.concat(source.publisher, ".");			
+		refObject.reference = refObject.reference.concat(source.publisher, ".");
 	}else if(source.sourceType == 'journalArticle'){
 		refObject.reference = refObject.reference.concat(source.title, ". ");
 		refObject.reference = refObject.reference.concat("<i>", source.journal, "</i>, ");
@@ -89,14 +89,14 @@ function apa(source){
 		if(source.hasOwnProperty('author')){
 			refObject.reference = refObject.reference.concat("<i>", source.siteName, "</i>. ");
 		}
-		
+
 		refObject.reference = refObject.reference.concat("Retrieved ", source.date.getDate(), " ", monthNames[source.date.getMonth()], " ", source.date.getFullYear(), ", ");
-		refObject.reference = refObject.reference.concat("from ", source.url);			
+		refObject.reference = refObject.reference.concat("from ", source.url);
 	}else if(source.sourceType == 'newsOrMag'){
 		refObject.reference = refObject.reference.concat(monthNames[source.date.getMonth()], " ", source.date.getDate(), "). ");
 		refObject.reference = refObject.reference.concat(source.articleTitle, ". ");
 		refObject.reference = refObject.reference.concat("<i>", source.paperName, "</i>");
-		
+
 		refObject.reference = source.hasOwnProperty('pagesUsed') ? refObject.reference.concat(", p. ", source.pagesUsed, ".") : source.reference.concat(".");
 	}
 
@@ -201,27 +201,27 @@ function harvard(source){
 		refObject.reference = refObject.reference.concat(" ", source.year, ", ");
 	}
 
-	if(source.sourceType == 'book'){	
+	if(source.sourceType == 'book'){
 		refObject.reference = refObject.reference.concat("<i>", source.title, "</i>, ");
 
 		if(source.hasOwnProperty('edition')){
-			refObject.reference = refObject.reference.concat(source.edition, " edn, ");		
+			refObject.reference = refObject.reference.concat(source.edition, " edn, ");
 		}
 
-		
+
 
 		if(source.hasOwnProperty('cityPublished')){
 			refObject.reference = refObject.reference.concat(source.publisher, ", ");
-			refObject.reference = refObject.reference.concat(source.cityPublished, ".");	
+			refObject.reference = refObject.reference.concat(source.cityPublished, ".");
 		}else{
 			refObject.reference = refObject.reference.concat(source.publisher, ".");
 		}
-		
+
 	}else if(source.sourceType == 'journalArticle'){
 		refObject.reference = refObject.reference.concat("'", source.title, "', ");
 		refObject.reference = refObject.reference.concat("<i>", source.journal, "</i>, ");
 		refObject.reference = refObject.reference.concat("vol. ", source.journalNum, ", ");
-		
+
 		if(source.hasOwnProperty('issueNum')){
 			refObject.reference = refObject.reference.concat("no. ", source.issueNum, ", ");
 		}
@@ -265,11 +265,11 @@ function harvardUTS(source){
 		refObject.reference = refObject.reference.concat(" ", source.year, ", ");
 	}
 
-	if(source.sourceType == 'book'){	
+	if(source.sourceType == 'book'){
 		refObject.reference = refObject.reference.concat("<i>", source.title, "</i>, ");
 
 		if(source.hasOwnProperty('edition')){
-			refObject.reference = refObject.reference.concat(source.edition, "edn, ");		
+			refObject.reference = refObject.reference.concat(source.edition, "edn, ");
 		}
 
 		refObject.reference = refObject.reference.concat(source.publisher, ", ");
@@ -278,17 +278,17 @@ function harvardUTS(source){
 		refObject.reference = refObject.reference.concat("'", source.title, "', ");
 		refObject.reference = refObject.reference.concat("<i>", source.journal, "</i>, ");
 		refObject.reference = refObject.reference.concat("vol. ", source.journalNum, ", ");
-		
+
 		if(source.hasOwnProperty('issueNum')){
 			refObject.reference = refObject.reference.concat("no. ", source.issueNum, ", ");
 		}
-		
+
 		refObject.reference = refObject.reference.concat("pp. ", source.pagesUsed, ".");
 	}else if(source.sourceType == 'website'){
 		refObject.reference = refObject.reference.concat("<i>", source.pageTitle, "</i>, ");
 		refObject.reference = refObject.reference.concat(source.siteName, ", ");
 		refObject.reference = refObject.reference.concat("viewed ", source.date.getDate(), " ", monthNames[source.date.getMonth()], " ", source.date.getFullYear(), ", ");
-		refObject.reference = refObject.reference.concat("<", source.url, ">");		
+		refObject.reference = refObject.reference.concat("<", source.url, ">");
 	}else if(source.sourceType == 'newsOrMag'){
 		refObject.reference = refObject.reference.concat("'", source.articleTitle, "', ");
 		refObject.reference = refObject.reference.concat("<i>", source.paperName, "</i>, ");

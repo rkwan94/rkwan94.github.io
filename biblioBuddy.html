@@ -13,8 +13,6 @@
 		body{
 			padding-top: 70px;
 			padding-bottom: 100px;
-
-			
 		}
 
 		@media (max-width: 775px) {
@@ -24,7 +22,7 @@
 			}
 		}
 
-		@media(min-width: 993px){ 
+		@media(min-width: 993px){
 			.resultSpace{
 				position: fixed;
 				top: 35%;
@@ -49,7 +47,7 @@
 
 			<div style="padding-top: 30px;" class="row" ng-controller="sourceController as sourceCtrl">
 
-				
+
 				<div class="col-md-7" >
 
 					<div>
@@ -75,22 +73,22 @@
 				  <!-- Tab panes -->
 				  <div class="tab-content" style="padding-top: 20px;">
 						<div role="tabpanel" class="tab-pane fade in active" id="journalArticleTab">
-							<div ng-include src='"./journalForm.html"'></div>
+							<div ng-include src='"./biblioBuddy/views/journalForm.html"'></div>
 						</div>
 
 						<div role="tabpanel" class="tab-pane fade" id="bookTab">
-							<div ng-include src='"./bookForm.html"'></div>
+							  <div ng-include src='"./biblioBuddy/views/bookForm.html"'></div>
 						</div>
 
 						<div role="tabpanel" class="tab-pane fade" id="websiteTab">
-							<div ng-include src='"./websiteForm.html"'></div>
+							  <div ng-include src='"./biblioBuddy/views/websiteForm.html"'></div>
 						</div>
 
 						<div role="tabpanel" class="tab-pane fade" id="newsOrMagTab">
-							<div ng-include src='"./newsMagForm.html"'></div>
+							  <div ng-include src='"./biblioBuddy/views/newsMagForm.html"'></div>
 						</div>
 
-							
+
 				  </div>
 
 
@@ -101,7 +99,7 @@
 				<div class="col-md-5 resultSpace">
 
 					<div ng-show="loading" class="loading"><img src="ajax-loader.gif">LOADING...</div>
-					
+
 					<div ng-repeat="r in source.searchResults">
 						<div class="list-group">
 							<a href="#" class="list-group-item">
@@ -122,10 +120,10 @@
 				</div>
 			</div>
 
-			
+
 		</div>
 
-		
+
 	</div>
 </div>
 
@@ -145,5 +143,3 @@
 </script>
 </body>
 </html>
-
-

@@ -18,6 +18,6 @@ app.controller('sourceController', function(){
 			this.book.inText = "(" + inTextAuthor + " " + this.book.year + ")";
 		}
 
-		
+
 	}
 })
