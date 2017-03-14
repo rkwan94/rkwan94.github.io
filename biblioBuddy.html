@@ -1,145 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-	<meta content="utf-8" http-equiv="encoding">
-	<title>Biblio Buddy (Beta)</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Biblio Buddy (Beta)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 
-	<style type="text/css">
-		body{
-			padding-top: 70px;
-			padding-bottom: 100px;
-		}
-
-		@media (max-width: 775px) {
-			body{
-				padding-left: 20px;
-				padding-right: 20px;
-			}
-		}
-
-		@media(min-width: 993px){
-			.resultSpace{
-				position: fixed;
-				top: 35%;
-				right: 1%;
-			}
-		}
-	</style>
+    <style type="text/css">
+        body {
+            padding-top: 70px;
+            padding-bottom: 100px;
+        }
+        
+        @media (max-width: 775px) {
+            body {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+        
+        @media(min-width: 993px) {
+            .resultSpace {
+                position: fixed;
+                top: 35%;
+                right: 1%;
+            }
+        }
+    </style>
 </head>
 
 
 <body ng-app="mainApp">
 
-<div ng-include src='"./assets/sharedHTML/navbar.html"'>
-</div>
+    <div ng-include src='"./assets/sharedHTML/navbar.html"'>
+    </div>
 
-<div class="container">
-	<div class="row">
-		<div ng-controller="EventCtrl">
-			<div class="page-header">
-			  <h1>Biblio Buddy</h1>
-			</div>
+    <div class="container">
+        <div class="row">
+            <div ng-controller="EventCtrl">
+                <div class="page-header">
+                    <h1>Biblio Buddy</h1>
+                </div>
 
-			<div style="padding-top: 30px;" class="row" ng-controller="sourceController as sourceCtrl">
-
-
-				<div class="col-md-7" >
-
-					<div>
-						<p>
-							Welcome to Biblio Buddy. This tool is designed to make referencing simple for students. Don't waste time manually typing out citations for your bibliographies; instead use this resource to automatically create precise references in Harvard, Harvard UTS, Chicago, or APA style.
-						</p>
-					</div>
-					<!-- Nav tabs -->
-				  <ul class="nav nav-tabs" role="tablist" id="myTab">
-				  	<li role="presentation" class="active" id="journalArticle">
-						<a data-target="#journalArticleTab" aria-controls="journalArticle" role="tab" data-toggle="tab" ng-click="sourceCtrl.resetAuthors()">Journal Article</a>
-					</li>
-					<li role="presentation" id="book">
-						<a data-target="#bookTab" aria-controls="book" role="tab" data-toggle="tab" ng-click="sourceCtrl.resetAuthors()">Book</a>
-					</li>
-					<li role="presentation" id="website">
-						<a data-target="#websiteTab" aria-controls="website" role="tab" data-toggle="tab" ng-click="sourceCtrl.resetAuthors()">Website</a></li>
-					<li role="presentation" id="newsOrMag">
-						<a data-target="#newsOrMagTab" aria-controls="newsOrMag" role="tab" data-toggle="tab" ng-click="sourceCtrl.resetAuthors()">Newspaper/Magazine</a>
-					</li>
-				  </ul>
-
-				  <!-- Tab panes -->
-				  <div class="tab-content" style="padding-top: 20px;">
-						<div role="tabpanel" class="tab-pane fade in active" id="journalArticleTab">
-							<div ng-include src='"./biblioBuddy/views/journalForm.html"'></div>
-						</div>
-
-						<div role="tabpanel" class="tab-pane fade" id="bookTab">
-							  <div ng-include src='"./biblioBuddy/views/bookForm.html"'></div>
-						</div>
-
-						<div role="tabpanel" class="tab-pane fade" id="websiteTab">
-							  <div ng-include src='"./biblioBuddy/views/websiteForm.html"'></div>
-						</div>
-
-						<div role="tabpanel" class="tab-pane fade" id="newsOrMagTab">
-							  <div ng-include src='"./biblioBuddy/views/newsMagForm.html"'></div>
-						</div>
+                <div style="padding-top: 30px;" class="row" ng-controller="sourceController as sourceCtrl">
 
 
-				  </div>
+                    <div class="col-md-7">
+
+                        <div>
+                            <p>
+                                Welcome to Biblio Buddy. This tool is designed to make referencing simple for students. Don't waste time manually typing out citations for your bibliographies; instead use this resource to automatically create precise references in Harvard, Harvard UTS,
+                                Chicago, JAMA, AMA or APA style.
+                            </p>
+                        </div>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist" id="myTab">
+                            <li role="presentation" class="active" id="journalArticle">
+                                <a data-target="#journalArticleTab" aria-controls="journalArticle" role="tab" data-toggle="tab" ng-click="sourceCtrl.resetAuthors()">Journal Article</a>
+                            </li>
+                            <li role="presentation" id="book">
+                                <a data-target="#bookTab" aria-controls="book" role="tab" data-toggle="tab" ng-click="sourceCtrl.resetAuthors()">Book</a>
+                            </li>
+                            <li role="presentation" id="website">
+                                <a data-target="#websiteTab" aria-controls="website" role="tab" data-toggle="tab" ng-click="sourceCtrl.resetAuthors()">Website</a></li>
+                            <li role="presentation" id="newsOrMag">
+                                <a data-target="#newsOrMagTab" aria-controls="newsOrMag" role="tab" data-toggle="tab" ng-click="sourceCtrl.resetAuthors()">Newspaper/Magazine</a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content" style="padding-top: 20px;">
+                            <div role="tabpanel" class="tab-pane fade in active" id="journalArticleTab">
+                                <div ng-include src='"./biblioBuddy/views/journalForm.html"'></div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="bookTab">
+                                <div ng-include src='"./biblioBuddy/views/bookForm.html"'></div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="websiteTab">
+                                <div ng-include src='"./biblioBuddy/views/websiteForm.html"'></div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="newsOrMagTab">
+                                <div ng-include src='"./biblioBuddy/views/newsMagForm.html"'></div>
+                            </div>
 
 
-				</div>
+                        </div>
+
+
+                    </div>
 
 
 
-				<div class="col-md-5 resultSpace">
+                    <div class="col-md-5 resultSpace">
 
-					<div ng-show="loading" class="loading"><img src="ajax-loader.gif">LOADING...</div>
+                        <div ng-show="loading" class="loading"><img src="ajax-loader.gif">LOADING...</div>
 
-					<div ng-repeat="r in source.searchResults">
-						<div class="list-group">
-							<a href="#" class="list-group-item">
-								<h4 class="list-group-item-heading"> {{r.title}} </h4>
-								<p class="list-group-item-text">
-									{{ r.authors }} <br>
-									{{ r.journal }}, {{ r.year }}
-								</p>
-							</a>
-						</div>
-					</div>
+                        <div ng-repeat="r in source.searchResults">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">
+                                    <h4 class="list-group-item-heading"> {{r.title}} </h4>
+                                    <p class="list-group-item-text">
+                                        {{ r.authors }} <br> {{ r.journal }}, {{ r.year }}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
 
-					<h2>Reference citation</h2>
-					<div class="well well-sm" ng-bind-html="source.reference | trustedhtml"></div>
+                        <h2>Reference citation</h2>
+                        <div class="well well-sm" ng-bind-html="source.reference | trustedhtml"></div>
 
-					<h2 style="padding-top: 15px;">In-text citation</h2>
-					<div class="well well-sm" ng-bind-html="source.inText | trustedhtml"></div>
-				</div>
-			</div>
-
-
-		</div>
+                        <h2 style="padding-top: 15px;">In-text citation</h2>
+                        <div class="well well-sm" ng-bind-html="source.inText | trustedhtml"></div>
+                    </div>
+                </div>
 
 
-	</div>
-</div>
+            </div>
 
-<script type="text/javascript" src="./assets/angular.min.js"></script>
-<script type="text/javascript" src="./biblioBuddy/mainApp.js"></script>
-<script type="text/javascript" src="./biblioBuddy/event/eventModule.js"></script>
-<script type="text/javascript" src="./biblioBuddy/controllers/sourceController.js"></script>
-<script type="text/javascript" src="./biblioBuddy/controllers/referenceFunctions.js"></script>
-<script type="text/javascript">
-	console.log("angular object", angular);
 
-	$('#myTab a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
+        </div>
+    </div>
 
-</script>
+    <script type="text/javascript" src="./assets/angular.min.js"></script>
+    <script type="text/javascript" src="./biblioBuddy/mainApp.js"></script>
+    <script type="text/javascript" src="./biblioBuddy/event/eventModule.js"></script>
+    <script type="text/javascript" src="./biblioBuddy/controllers/sourceController.js"></script>
+    <script type="text/javascript" src="./biblioBuddy/controllers/referenceFunctions.js"></script>
+    <script type="text/javascript">
+        console.log("angular object", angular);
+
+        $('#myTab a').click(function(e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    </script>
 </body>
+
 </html>

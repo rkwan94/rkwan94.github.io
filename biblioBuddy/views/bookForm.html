@@ -1,94 +1,97 @@
 <form name="bookAuto" ng-submit="bookAuto.$valid && ajaxAction('book')" novalidate>
-	<div class="form-group">
-		<label for="title">Auto-cite</label>
-		<input type="text" class="form-control" placeholder="Enter book title or ISBN here..." ng-model="source.searchQuery" required>
-	</div>
+    <div class="form-group">
+        <label for="title">Auto-cite</label>
+        <input type="text" class="form-control" placeholder="Enter book title or ISBN here..." ng-model="source.searchQuery" required>
+    </div>
 
-	<div class="form-group">
-		<label for="pagesUsed">Pages Used</label>
-		<input type="text" class="form-control" ng-model="source.pagesUsed" placeholder="Pages Used (pp 1-5)">
-	</div>
+    <div class="form-group">
+        <label for="pagesUsed">Pages Used</label>
+        <input type="text" class="form-control" ng-model="source.pagesUsed" placeholder="Pages Used (pp 1-5)">
+    </div>
 
-	<div class="form-group">
-		<input type="radio" ng-model="source.refStyle" value="harvard" required> Harvard<br>
-		<input type="radio" ng-model="source.refStyle" value="uts"> Harvard UTS<br>
-		<input type="radio" ng-model="source.refStyle" value="apa"> APA<br>
-		<input type="radio" ng-model="source.refStyle" value="chicago"> Chicago<br>
-	</div>
+    <div class="form-group">
+        <input type="radio" ng-model="source.refStyle" value="harvard" required> Harvard<br>
+        <input type="radio" ng-model="source.refStyle" value="uts"> Harvard UTS<br>
+        <input type="radio" ng-model="source.refStyle" value="apa"> APA<br>
+        <input type="radio" ng-model="source.refStyle" value="ama"> AMA<br>
+        <input type="radio" ng-model="source.refStyle" value="jama"> JAMA<br>
+        <input type="radio" ng-model="source.refStyle" value="chicago"> Chicago<br>
+    </div>
 
-	<button class="btn btn-default" type="submit">Auto-cite</button>
+    <button class="btn btn-default" type="submit">Auto-cite</button>
 </form>
 
 <hr>
 
 <form name="bookForm" ng-submit="bookForm.$valid && generateReferences('book')" novalidate>
-	<div class="form-group">
-		<label for="title">Title</label>
-		<input type="text" class="form-control" ng-model="source.title" placeholder="Title" required>
-	</div>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" ng-model="source.title" placeholder="Title" required>
+    </div>
 
-	<div class="form-group">
-		<label for="year" class="control-label">Year</label>
-		
-		<select class="form-control" ng-model="source.year" required>
+    <div class="form-group">
+        <label for="year" class="control-label">Year</label>
+
+        <select class="form-control" ng-model="source.year" required>
 			<option ng-repeat="year in generateYears(2016, 1800)">{{year}}</option>
 		</select>
-	</div>
+    </div>
 
-	<div class="form-group">
-		<label class="control-label">Author(s)</label>
-	</div>
+    <div class="form-group">
+        <label class="control-label">Author(s)</label>
+    </div>
 
-	<div ng-repeat="a in source.authors">
-		<div class="form-group form-inline">
+    <div ng-repeat="a in source.authors">
+        <div class="form-group form-inline">
 
-			<div class="form-group">
-				<label for="author1" class="control-label">Author {{ a.count }}: </label>
-			</div>
+            <div class="form-group">
+                <label for="author1" class="control-label">Author {{ a.count }}: </label>
+            </div>
 
-			<div class="form-group">
-				<input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
-			</div>
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="a.firstName" placeholder="First Name">
+            </div>
 
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
-			</div>
-		</div>
-	</div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Last Name" ng-model="a.lastName">
+            </div>
+        </div>
+    </div>
 
-	<button class="btn btn-default" type="button" ng-click="addAuthor()">Add Author</button>
+    <button class="btn btn-default" type="button" ng-click="addAuthor()">Add Author</button>
 
-	<button class="btn btn-warning" type="button" ng-click="removeAuthor()" ng-disabled="numAuthors() == 1;">Remove Author</button>
-	<hr>
+    <button class="btn btn-warning" type="button" ng-click="removeAuthor()" ng-disabled="numAuthors() == 1;">Remove Author</button>
+    <hr>
 
-	<div class="form-group">
-		<label for="edition">Edition</label>
-		<input type="text" class="form-control" ng-model="source.edition" placeholder="1st">
+    <div class="form-group">
+        <label for="edition">Edition</label>
+        <input type="text" class="form-control" ng-model="source.edition" placeholder="1st">
 
-	</div>
+    </div>
 
-	<div class="form-group">
-		<label for="publisher">Publisher</label>
-		<input type="text" class="form-control" ng-model="source.publisher" placeholder="Publisher" required>
-	</div>
+    <div class="form-group">
+        <label for="publisher">Publisher</label>
+        <input type="text" class="form-control" ng-model="source.publisher" placeholder="Publisher" required>
+    </div>
 
-	<div class="form-group">
-		<label for="cityPublished">City Published</label>
-		<input type="text" class="form-control" ng-model="source.cityPublished" placeholder="City Published" required>
-	</div>
+    <div class="form-group">
+        <label for="cityPublished">City Published</label>
+        <input type="text" class="form-control" ng-model="source.cityPublished" placeholder="City Published" required>
+    </div>
 
-	<div class="form-group">
-		<label for="pagesUsed">Pages Used</label>
-		<input type="text" class="form-control" ng-model="source.pagesUsed" placeholder="Pages Used (pp 1-5)">
-	</div>
+    <div class="form-group">
+        <label for="pagesUsed">Pages Used</label>
+        <input type="text" class="form-control" ng-model="source.pagesUsed" placeholder="Pages Used (pp 1-5)">
+    </div>
 
-	<div class="form-group">
-		<input type="radio" ng-model="source.refStyle" value="harvard" required> Harvard<br>
-		<input type="radio" ng-model="source.refStyle" value="uts"> Harvard UTS<br>
-		<input type="radio" ng-model="source.refStyle" value="apa"> APA<br>
-		<input type="radio" ng-model="source.refStyle" value="chicago"> Chicago<br>
-	</div>
+    <div class="form-group">
+        <input type="radio" ng-model="source.refStyle" value="harvard" required> Harvard<br>
+        <input type="radio" ng-model="source.refStyle" value="uts"> Harvard UTS<br>
+        <input type="radio" ng-model="source.refStyle" value="apa"> APA<br>
+        <input type="radio" ng-model="source.refStyle" value="ama"> AMA<br>
+        <input type="radio" ng-model="source.refStyle" value="jama"> JAMA<br>
+        <input type="radio" ng-model="source.refStyle" value="chicago"> Chicago<br>
+    </div>
 
-	<button type="submit" class="btn btn-primary">Generate</button>
+    <button type="submit" class="btn btn-primary">Generate</button>
 </form>
-
