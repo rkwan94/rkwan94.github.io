@@ -28,13 +28,14 @@
         <label for="title">Title</label>
         <input type="text" class="form-control" ng-model="source.title" placeholder="Title" required>
     </div>
-
     <div class="form-group">
         <label for="year" class="control-label">Year</label>
 
-        <select class="form-control" ng-model="source.year" required>
-			<option ng-repeat="year in generateYears(2016, 1800)">{{year}}</option>
-		</select>
+        <!-- <select class="form-control" id="year" ng-model="source.year" required> -->
+			  <!-- <option ng-repeat="year in generateYears(2016, 1880)">{{year}}</option> -->
+		    <!-- </select> -->
+
+        <input id="year" class="form-control" ng-model="source.year" type="number" placeholder="2017"/>
     </div>
 
     <div class="form-group">

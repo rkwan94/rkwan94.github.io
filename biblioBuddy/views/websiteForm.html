@@ -1,3 +1,4 @@
+
 <form name="websiteForm" ng-submit="websiteForm.$valid && generateReferences('website')" novalidate>
     <div class="form-group">
         <label for="siteName">Website Name</label>
@@ -12,9 +13,11 @@
     <div class="form-group">
         <label for="year" class="control-label">Year Published</label>
 
-        <select class="form-control" id="year" ng-model="source.year">
-			<option ng-repeat="year in generateYears(2016, 1975)">{{year}}</option>
-		</select>
+        <!-- <select class="form-control" id="year" ng-model="source.year" required> -->
+			  <!-- <option ng-repeat="year in generateYears(2016, 1880)">{{year}}</option> -->
+		    <!-- </select> -->
+
+        <input id="year" class="form-control" ng-model="source.year" type="number" placeholder="2017"/>
     </div>
 
     <div class="form-group">
